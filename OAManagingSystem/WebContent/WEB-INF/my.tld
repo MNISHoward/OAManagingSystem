@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd" >
+	<tlib-version>1.2</tlib-version>  
+    <short-name>ch</short-name>  
+    <uri>http://www.ch.tag</uri>  
+	<tag>
+	    <name>input</name>
+	    <tag-class>ch.howard.frame.tag.InputTag</tag-class>
+	    <body-content>empty</body-content>
+		<dynamic-attributes>true</dynamic-attributes>
+	 </tag>
+ </taglib>

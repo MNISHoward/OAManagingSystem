@@ -1,0 +1,121 @@
+/*
+    顶部导航样式
+ */
+body {
+    padding-top: 70px;
+    height: 100%;
+}
+
+.navbar {
+    padding-top: 10px;
+}
+
+.navbar>.container-fluid .navbar-brand {
+    margin: 0 20px;
+}
+
+@media (min-width: 768px) {
+    .navbar-right {
+        margin-right: 10px;
+    }
+}
+
+.navbar-nav li {
+    color: #c0c0c0;
+}
+
+.navbar-nav li.active{
+    background: #ddd;
+}
+
+.notifying {
+    font-size: 2em;
+}
+
+.navbar-right li:hover,
+.navbar-right li:focus,
+.navbar-right li:active{
+    background: none;
+}
+
+.notifying-num {
+    display: inline-block;
+    background: rgba(255, 0, 0, 0.62);
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    position: relative;
+    top: -20px;
+    left: -15px;
+}
+
+/*
+
+    左部导航样式
+
+ */
+
+#left-navbar {
+    padding: 0px;
+    height: 100%;
+    position:absolute;
+    background: -webkit-linear-gradient(top, #71757e 0%, #242934 100%);
+}
+
+#left-navbar a.list-group-item{
+    background: transparent;
+    color: #eee;
+    padding: 20px 15px;
+    border: none;
+}
+
+#left-navbar a.list-group-item:hover,
+#left-navbar a.list-group-item:active,
+#left-navbar a.list-group-item:focus{
+    background: rgba(27, 27, 47, 0.56);
+}
+
+#left-navbar .center-block {
+    margin: auto;
+}
+
+.person-intro {
+    margin-right: 0;
+    height: 80px;
+    padding: 15px 0 0 23% !important;
+}
+
+.person-intro:hover,
+.person-intro:active,
+.person-intro:focus{
+    background: transparent !important;
+}
+
+.person-name {
+    display: block;
+}
+.person-role {
+    margin-top: 10px;
+    display: block;
+}
+
+.person-setting {
+    margin: 14px 0 0 -10px;
+    font-size: .85em;
+
+}
+
+.icon {
+    position: relative;
+    top : 3px;
+    float: left;
+    font-size: 1.2em;
+    margin-left: 10px;
+}
+
+.icon-text {
+    margin-left: -35px;
+}

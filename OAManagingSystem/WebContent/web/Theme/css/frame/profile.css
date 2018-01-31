@@ -1,0 +1,22 @@
+.main-content {
+	margin: 0 auto;
+	width: 70%;
+}
+.profile-content {
+	padding-top: 30px;
+}
+
+section h4 {
+	display: inline-block;
+	margin:0 0 20px 20%;
+	font-weight: bold;
+}
+
+.profile-content.center-block {
+	text-align: center;
+}
+
+#logoutbtn {
+	width: 200px;
+	margin: 0 auto;
+}
