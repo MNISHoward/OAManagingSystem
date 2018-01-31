@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,7 +20,28 @@ import org.hibernate.annotations.FetchMode;
 public class Department {
 	private Integer id;
 	private String name;
-	List<Staff> staffs;
+	private Department department;
+	private List<Department> departments;
+	
+	@Fetch(FetchMode.JOIN)
+	@ManyToOne
+	@JoinColumn(name="dept_id")
+	public Department getDepartment() {
+		return department;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+	
+	@Fetch(FetchMode.JOIN)
+	@OneToMany(mappedBy="department")
+	public List<Department> getDepartments() {
+		return departments;
+	}
+	public void setDepartments(List<Department> departments) {
+		this.departments = departments;
+	}
+	private List<Staff> staffs;
 	
 	public Department() {
 		super();
@@ -28,10 +50,12 @@ public class Department {
 		super();
 		this.name = name;
 	}
-	public Department(String name, List<Staff> staffs) {
+	
+	public Department(String name, Department department, List<Department> departments) {
 		super();
 		this.name = name;
-		this.staffs = staffs;
+		this.department = department;
+		this.departments = departments;
 	}
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
