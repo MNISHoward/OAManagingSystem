@@ -32,12 +32,6 @@ public class StaffService {
 	private DeptDAO deptDao;
 	
 	@Transactional
-	public void insertStaff() {
-		Staff staff = new Staff(null,"ch","总经理",1,new Date(), "ch@howard.com","10000","guangzhoucity",100000.10,deptDao.findOne(1));
-		staffDao.save(staff);
-	}
-	
-	@Transactional
 	public Map<String,Object> updateStaffEPA(Map<String, Object> inMap) {
 		log.info("执行StaffService.updateStaff()");
 		Session session = SecurityUtils.getSubject().getSession();

@@ -9,7 +9,7 @@
                 <div class="center-block">
                     <div class="col-sm-9" >
                         <span class="person-name" ><s:property value="#session.staff.titleName" /></span>
-                        <span class="person-role" >系统管理员</span>
+                        <span class="person-role" ><s:property value="#session.staff.job" /></span>
                     </div>
                     <div class="col-sm-3"><span class="person-setting glyphicon glyphicon-play" ></span></div>
                  </div>

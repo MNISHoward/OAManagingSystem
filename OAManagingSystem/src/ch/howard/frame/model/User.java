@@ -1,6 +1,8 @@
 package ch.howard.frame.model;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
+import ch.howard.rbac.model.Role;
 
 @Entity
 @Table(name="ch_user")
@@ -23,8 +29,26 @@ public class User {
 	private Date loginTime;
 	private Integer state;
 	private Staff staff;
+	private Set<Role> roles; 
 	
-	
+	@Fetch(FetchMode.JOIN)
+	@ManyToMany
+	@JoinTable(
+		name="user_role",
+		joinColumns = {
+			@JoinColumn(name="user_id")
+		},
+		inverseJoinColumns = {
+			@JoinColumn(name="role_id")
+	})
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	public User() {
 		super();
 	}
@@ -80,6 +104,10 @@ public class User {
 	}
 	public void setStaff(Staff staff) {
 		this.staff = staff;
+	}
+	
+	public void addRole(Role r) {
+		this.roles.add(r);
 	}
 	
 	

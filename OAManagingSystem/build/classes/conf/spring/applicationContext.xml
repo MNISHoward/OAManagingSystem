@@ -18,7 +18,7 @@
     http://www.springframework.org/schema/cache 
     http://www.springframework.org/schema/cache/spring-cache.xsd
     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-    http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository.xsd"
+    "
 	default-autowire="byName">
 	
 	<!-- 自动扫描受spring管理的包 -->
@@ -73,15 +73,15 @@
          1) specify an init-method and destroy-method attributes for every bean
             definition and
          2) even know which Shiro objects require these methods to be
-            called. -->
+            called. 
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-
+	-->
     <!-- Enable Shiro Annotations for Spring-configured beans.  Only run after
-         the lifecycleBeanProcessor has run: -->
+         the lifecycleBeanProcessor has run: 
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor">
           <property name="proxyTargetClass" value="true"/>
-    </bean>
+    </bean>-->
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
@@ -102,7 +102,7 @@
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login.do"/>
         <property name="unauthorizedUrl" value="/WEB-INF/shiro/unauthorized.jsp"/>
-       <!--  <property name="filterChainDefinitionMap" ref="filterChainFactory" /> -->
+       	<property name="filterChainDefinitionMap" ref="filterChainFactory" />
         <!-- The 'filters' property is not necessary since any declared javax.servlet.Filter bean
              defined will be automatically acquired and available via its beanName in chain
              definitions, but you can perform overrides or parent/child consolidated configuration
@@ -114,6 +114,7 @@
                 </entry>
             </map>
         </property>
+        <!-- 
         <property name="filterChainDefinitions">
             <value>
                 /ajax/ajax.do = anon
@@ -129,12 +130,12 @@
                 /** = authc
             </value>
         </property>
+         -->
     </bean>
-    <!-- 
     <bean id="filterChainFactory" factory-bean="filterChainFactoryBuilder" factory-method="LinkedHashMapBulider" ></bean>
     
-    <bean id="filterChainFactoryBuilder" class="com.howard.factory.FilterChainFactoryBuilder" ></bean>
-	 -->
+    <bean id="filterChainFactoryBuilder" class="ch.howard.frame.shiro.factory.FilterChainFactoryBuilder" ></bean>
+
 	 
 	 <!-- 配置hibernate数据源 -->
 	 <context:property-placeholder location="classpath:conf/datasource/mysql.properties" />

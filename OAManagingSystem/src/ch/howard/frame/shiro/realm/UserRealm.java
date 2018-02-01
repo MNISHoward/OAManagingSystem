@@ -1,6 +1,7 @@
 package ch.howard.frame.shiro.realm;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ch.howard.frame.dao.UserDAO;
 import ch.howard.frame.model.User;
 import ch.howard.frame.util.Util;
+import ch.howard.rbac.model.Role;
 
 public class UserRealm extends AuthorizingRealm {
 	
@@ -29,14 +31,18 @@ public class UserRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection pc) {
+		System.out.println(111);
 		Object principal = pc.getPrimaryPrincipal();
-		Set<String> roles = new HashSet<String>();
-		roles.add("user");
-		if("admin".equals(principal)) {
-			roles.add("admin");
+		User u = userDao.findByUsername(principal.toString());
+		Set<String> rolesSet = new HashSet<String>();
+		Set<Role> roles = u.getRoles();
+		Iterator<Role> iterator = roles.iterator();
+		while(iterator.hasNext()) {
+			Role role = iterator.next();
+			rolesSet.add(role.getName());
 		}
-		
-		return new SimpleAuthorizationInfo(roles);
+		System.out.println(rolesSet);
+		return new SimpleAuthorizationInfo(rolesSet);
 	}
 
 	@Override

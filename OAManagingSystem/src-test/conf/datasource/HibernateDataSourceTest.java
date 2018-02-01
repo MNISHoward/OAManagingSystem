@@ -1,5 +1,6 @@
 package conf.datasource;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ch.howard.commonClass.BaseJunit4Test;
 import ch.howard.frame.dao.DeptDAO;
+import ch.howard.frame.dao.StaffDAO;
 import ch.howard.frame.model.Department;
+import ch.howard.frame.model.Staff;
 import ch.howard.frame.service.DeptService;
 import ch.howard.frame.service.StaffService;
 
@@ -27,6 +30,9 @@ public class HibernateDataSourceTest extends BaseJunit4Test {
 	
 	@Autowired
 	DeptDAO deptDao;
+	
+	@Autowired
+	StaffDAO staffDao;
 	
 	@Test
 	public void testDept2() {
@@ -49,11 +55,6 @@ public class HibernateDataSourceTest extends BaseJunit4Test {
 	}
 	
 	@Test
-	public void testStaff() {
-		staffService.insertStaff();
-	}
-	
-	@Test
 	public void testUtf8() {
 		Department dept = deptDao.findOne(1);
 		System.out.println(dept.getName());
@@ -61,7 +62,8 @@ public class HibernateDataSourceTest extends BaseJunit4Test {
 	
 	@Test
 	public void testJPA() {
-		deptService.insertDept();
+		Staff staff = new Staff("chenghao", "财务经理", 0, new Date(), "ch@howard.com", "10086", "ChinaGuangzhouHanghaixueyuan", 10000.00, deptDao.findOne(5), "财务经理");
+		staffDao.save(staff);
 	}
 	
 	

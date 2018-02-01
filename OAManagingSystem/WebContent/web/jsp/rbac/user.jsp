@@ -30,7 +30,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>总经理</td>
+				<td>总经理<a href="<%=ctx %>/web/jsp/rbac/user.jsp">权限</a></td>
 			</tr>
 		</tbody>
 	</table>

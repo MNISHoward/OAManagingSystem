@@ -44,17 +44,22 @@
     	</action>
     </package>
     
-    <package name="indexPackage" namespace="/" extends="struts-default" >
+    <package name="resourcePackage" namespace="/" extends="struts-default" >
+    	<global-results>
+    		<result name="login" type="redirectAction" >login</result>
+   		</global-results>
     	<action name="index" class="indexAction" >
     		<result>web/jsp/frame/index.jsp</result>
-    		<result name="login" type="redirectAction" >login</result>
     	</action>
     	
     	<action name="login" class="loginAction" >
     		<result>web/jsp/frame/login.jsp</result>
     		<result name="index" type="redirectAction" >index</result>
     	</action>
+    	
+    	<action name="rbac" class="rbacAction" >
+    		<result>web/jsp/rbac/user.jsp</result>
+    	</action>
     </package>
-    
 
 </struts>

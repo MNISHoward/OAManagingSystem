@@ -27,15 +27,22 @@ public class Staff {
 	private String phone;
 	private String address;
 	private Double salary;
+	private String job;
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
 	private Department department;
 	
 	public Staff() {
 	}
 	 
-	public Staff(Integer id, String name, String titleName, Integer sex, Date birthday, String email, String phone,
-			String address, Double salary, Department department) {
+	public Staff(String name, String titleName, Integer sex, Date birthday, String email, String phone,
+			String address, Double salary, Department department, String job) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.titleName = titleName;
 		this.sex = sex;
@@ -45,6 +52,7 @@ public class Staff {
 		this.address = address;
 		this.salary = salary;
 		this.department = department;
+		this.job = job;
 	}
 
 	@Id

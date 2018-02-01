@@ -24,7 +24,7 @@ $('#dept-nav a.has-child').click(function (e) {
 	
 	//选择其他部门时，将其他高亮的取消掉
 	$('#dept-nav .active').removeClass('active');
-	$li.siblings().find('.glyphicon').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
+	//$li.siblings().find('.glyphicon').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
 	
 	//选择时，设置箭头方向
 	if($span.hasClass('glyphicon-chevron-right')) {
@@ -35,7 +35,6 @@ $('#dept-nav a.has-child').click(function (e) {
 		$span.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
 	}
 	var $ul = $(target).parents('li').children('ul');
-	$('#dept-nav li ul').not($ul).css("display", "none");
 	$ul.slideToggle('fast');
 });
 
