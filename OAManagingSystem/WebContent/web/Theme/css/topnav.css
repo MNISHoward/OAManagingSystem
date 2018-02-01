@@ -1,0 +1,53 @@
+/*
+    顶部导航样式
+ */
+#top-navbar-body {
+    padding-top: 70px;
+    height: 100%;
+}
+
+#top-navbar {
+    padding-top: 10px;
+}
+
+#top-navbar>.container-fluid .navbar-brand {
+    margin: 0 20px;
+}
+
+@media (min-width: 768px) {
+    .navbar-right {
+        margin-right: 10px;
+    }
+}
+
+#top-navbar .navbar-nav li {
+    color: #c0c0c0;
+}
+
+#top-navbar .navbar-nav li.active{
+    background: #ddd;
+}
+
+.notifying {
+    font-size: 2em;
+}
+
+.navbar-right li:hover,
+.navbar-right li:focus,
+.navbar-right li:active{
+    background: none;
+}
+
+.notifying-num {
+    display: inline-block;
+    background: rgba(255, 0, 0, 0.62);
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    position: relative;
+    top: -20px;
+    left: -15px;
+}

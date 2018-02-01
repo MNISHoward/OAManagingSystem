@@ -1,0 +1,64 @@
+body {
+	background: url(../../images/bg.jpg);
+	font-family: 'Lato';
+}
+
+.navbar {
+	background: #2c3e50!important;
+	border: #2c3e50!important;
+	border-radius: 0px;
+	padding: 15px 10%;
+}
+
+
+.navbar-default .navbar-brand {
+	color: #F4F8F5;
+	font-size: 2em;
+	letter-spacing: .3em;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus{
+	color: #ccc;
+}
+
+.main {
+	width: 40%;
+	height: 450px;
+	margin: 50px auto;
+	background: #fff;
+}
+
+.nav-tabs>li {
+	width: 50%;
+	background: #fff;
+}
+
+.nav-tabs>li>a {
+	font-family: '黑体','Lato';
+	font-size: 1.6em;
+	color : #474E77;
+	text-align: center;
+	padding-left: 20%;
+	letter-spacing: 2em;
+	background: #EEE;
+}
+
+.nav-tabs>li.active>a, 
+.nav-tabs>li.active>a:focus, 
+.nav-tabs>li.active>a:hover {
+	background: #FFF;
+}
+
+#loginForm,#registerForm {
+	margin-top: 30px;
+	padding:0 10%;
+}
+
+.control-label,
+.checkbox-inline,
+.radio-inline {
+	color: #999;
+	font-size: .75em;
+	letter-spacing: .3em;
+}
