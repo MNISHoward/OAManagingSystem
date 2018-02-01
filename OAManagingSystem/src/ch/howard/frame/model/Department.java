@@ -2,7 +2,9 @@ package ch.howard.frame.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +20,6 @@ import org.hibernate.annotations.FetchMode;
 public class Department {
 	private Integer id;
 	private String name;
-	private List<Staff> staffs;
 	private Department department;
 	private List<Department> departments;
 	
@@ -40,6 +41,7 @@ public class Department {
 	public void setDepartments(List<Department> departments) {
 		this.departments = departments;
 	}
+	private List<Staff> staffs;
 	
 	public Department() {
 		super();
