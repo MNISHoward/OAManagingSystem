@@ -7,7 +7,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/asm-5.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/asm-commons-5.2.jar"/>
@@ -73,5 +72,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-pool2-2.5.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-data-commons-1.13.9.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-data-jpa-1.11.9.RELEASE.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
