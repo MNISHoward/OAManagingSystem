@@ -5,13 +5,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ch.howard.frame.shiro.service.UserLoginService;
 import ch.howard.rbac.dao.RoleDAO;
 import ch.howard.rbac.model.Menu;
 import ch.howard.rbac.model.Role;
 
 public class FilterChainFactoryBuilder {
+	
+	private static final transient Logger log = LoggerFactory.getLogger(FilterChainFactoryBuilder.class);
 	
 	@Autowired
 	private RoleDAO roleDao;
@@ -28,8 +33,6 @@ public class FilterChainFactoryBuilder {
 	    
 	    map.put("/logout", "logout");
 	    
-	    map.put("/**", "authc");
-	    
 	    Iterable<Role> roles = roleDao.findAll();
 	    Iterator<Role> iterRoles = roles.iterator();
 	    while(iterRoles.hasNext()) {
@@ -43,11 +46,12 @@ public class FilterChainFactoryBuilder {
 	    			roleValue = roleValue.substring(0, roleValue.length()-1) + "," + role.getName() + "]";
 	    			map.put(url, roleValue);
 	    		}else {
-	    			map.put(url, "roles[" + role.getName() + "]");
+	    			map.put(url, "roles[\"" + role.getName() + "\"]");
 	    		}
 	    	}
 	    }
-	    System.out.println(map);
+	    map.put("/**", "authc");
+	    log.info("系统权限要求:" + map);
 		return map;
 	}
 	

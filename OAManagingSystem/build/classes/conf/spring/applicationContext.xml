@@ -73,15 +73,15 @@
          1) specify an init-method and destroy-method attributes for every bean
             definition and
          2) even know which Shiro objects require these methods to be
-            called. 
+            called. -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-	-->
+	
     <!-- Enable Shiro Annotations for Spring-configured beans.  Only run after
-         the lifecycleBeanProcessor has run: 
+         the lifecycleBeanProcessor has run: -->
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor">
           <property name="proxyTargetClass" value="true"/>
-    </bean>-->
+    </bean>
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
@@ -101,7 +101,7 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login.do"/>
-        <property name="unauthorizedUrl" value="/WEB-INF/shiro/unauthorized.jsp"/>
+        <property name="unauthorizedUrl" value="/web/Common/jsp/unauthorized.jsp"/>
        	<property name="filterChainDefinitionMap" ref="filterChainFactory" />
         <!-- The 'filters' property is not necessary since any declared javax.servlet.Filter bean
              defined will be automatically acquired and available via its beanName in chain
@@ -173,6 +173,8 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" >
 		<property name="entityManagerFactory" ref="entityManangerFactory"></property>
 	</bean>
+	
+	<aop:config></aop:config>
 	
 	<tx:annotation-driven transaction-manager="transactionManager"  />
 

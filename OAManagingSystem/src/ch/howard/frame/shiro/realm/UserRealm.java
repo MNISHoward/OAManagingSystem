@@ -31,7 +31,6 @@ public class UserRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection pc) {
-		System.out.println(111);
 		Object principal = pc.getPrimaryPrincipal();
 		User u = userDao.findByUsername(principal.toString());
 		Set<String> rolesSet = new HashSet<String>();
@@ -41,7 +40,6 @@ public class UserRealm extends AuthorizingRealm {
 			Role role = iterator.next();
 			rolesSet.add(role.getName());
 		}
-		System.out.println(rolesSet);
 		return new SimpleAuthorizationInfo(rolesSet);
 	}
 
