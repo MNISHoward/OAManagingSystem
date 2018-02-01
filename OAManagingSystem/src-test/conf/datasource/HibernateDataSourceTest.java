@@ -3,7 +3,6 @@ package conf.datasource;
 import java.util.HashSet;
 import java.util.Set;
 
->>>>>>> cb0460da95b0fbd18c49f080cba3efdcdb618b4b
 import javax.sql.DataSource;
 
 import org.junit.Test;
