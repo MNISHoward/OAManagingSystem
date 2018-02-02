@@ -12,9 +12,10 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import ch.howard.frame.model.Resource;
 import ch.howard.frame.service.IndexService;
+import ch.howard.frame.service.ResourceService;
 import ch.howard.frame.util.EhcacheUtil;
-import ch.howard.rbac.model.Resource;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -26,7 +27,10 @@ public class IndexAction extends ActionSupport {
 	private static final transient Logger log = LoggerFactory.getLogger(IndexAction.class);
 	
 	@Autowired
+	private ResourceService resourceService;
+	@Autowired
 	private IndexService indexService;
+	
 	private Iterable<Resource> resources;
 	
 	public Iterable<Resource> getResources() {
@@ -36,14 +40,17 @@ public class IndexAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		log.info("执行IndexAction.execute");
-		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpSession session = request.getSession();
-		resources = indexService.queryResource();
-		if(session.getAttribute("user") == null) {
-			SecurityUtils.getSubject().logout();
+		//判断session中user项是否有值
+		if(!indexService.verifyUserInSession()) {
 			return "login";
 		}
-		return super.execute();
+		
+		//获取资源项
+		resources = resourceService.queryResource();
+		
+		
+		
+		return "success";
 	}
 	
 }

@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ch.howard.frame.dao.DeptDAO;
+import ch.howard.frame.model.Department;
+import ch.howard.frame.util.EhcacheUtil;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.Element;
 
 @Service
 public class DeptService {
@@ -27,5 +31,19 @@ public class DeptService {
 		
 	}
 	
+	public Iterable<Department> queryAllDept() {
+		Iterable<Department> depts;
+		Cache cache = EhcacheUtil.getCache("resourceCache");
+		Element element = cache.get("departments");
+		if(element == null) {
+			depts = deptDao.findAll();
+			cache.put(new Element("departments", depts));
+			log.info("存储在缓存Ehcache中:" + depts);
+		}else {
+			depts = (Iterable<Department>) element.getObjectValue();
+			log.info("从缓存Ehcache中获取" + element.getObjectKey());
+		}
+		return depts;
+	}
 	
 }

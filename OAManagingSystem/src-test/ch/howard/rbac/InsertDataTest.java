@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ch.howard.commonClass.BaseJunit4Test;
 import ch.howard.frame.dao.DeptDAO;
+import ch.howard.frame.dao.MenuDAO;
+import ch.howard.frame.dao.ResourceDAO;
 import ch.howard.frame.dao.UserDAO;
+import ch.howard.frame.model.Menu;
+import ch.howard.frame.model.Resource;
 import ch.howard.frame.model.User;
-import ch.howard.rbac.dao.MenuDAO;
-import ch.howard.rbac.dao.ResourceDAO;
 import ch.howard.rbac.dao.RoleDAO;
-import ch.howard.rbac.model.Menu;
-import ch.howard.rbac.model.Resource;
 import ch.howard.rbac.model.Role;
 
 public class InsertDataTest extends BaseJunit4Test {

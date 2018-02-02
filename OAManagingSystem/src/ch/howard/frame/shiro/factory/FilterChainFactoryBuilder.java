@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ch.howard.frame.model.Menu;
 import ch.howard.frame.shiro.service.UserLoginService;
 import ch.howard.rbac.dao.RoleDAO;
-import ch.howard.rbac.model.Menu;
 import ch.howard.rbac.model.Role;
 
 public class FilterChainFactoryBuilder {

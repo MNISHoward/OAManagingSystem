@@ -1,8 +1,8 @@
-package ch.howard.rbac.dao;
+package ch.howard.frame.dao;
 
 import org.springframework.data.repository.CrudRepository;
 
-import ch.howard.rbac.model.Menu;
+import ch.howard.frame.model.Menu;
 
 public interface MenuDAO extends CrudRepository<Menu, Integer> {
 

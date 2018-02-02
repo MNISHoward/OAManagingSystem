@@ -1,4 +1,4 @@
-package ch.howard.rbac.model;
+package ch.howard.frame.model;
 
 import java.util.List;
 

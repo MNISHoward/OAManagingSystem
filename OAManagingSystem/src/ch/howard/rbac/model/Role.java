@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import ch.howard.frame.model.Menu;
 import ch.howard.frame.model.User;
 
 @Entity

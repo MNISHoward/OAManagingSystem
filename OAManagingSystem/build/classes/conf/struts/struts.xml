@@ -58,7 +58,8 @@
     	</action>
     	
     	<action name="rbac" class="rbacAction" >
-    		<result>web/jsp/rbac/user.jsp</result>
+    		<result>web/jsp/rbac/rbac.jsp</result>
+    		<result name="user" >web/jsp/rbac/user.jsp</result>
     	</action>
     </package>
 

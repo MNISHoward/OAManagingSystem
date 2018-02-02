@@ -1,5 +1,4 @@
 <%@page pageEncoding="UTF-8" %>
-<%@taglib uri="/struts-tags"  prefix="s" %>
 <!-- 顶部导航 -->
 <nav id="top-navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -18,7 +17,7 @@
                 <li><a href="#">收件箱</a></li>
                 <s:iterator value="resources" >
           		 <s:if test="state == 0" >
-          		  <li><a href='<%=ctx %><s:property value="url" />'><s:property value="titleName" /></a></li>
+          		  <li><a href='<%=ctx %><s:property value="url" />?rid=<s:property value="id" />'><s:property value="titleName" /></a></li>
                	 </s:if>
                 </s:iterator>
             </ul>

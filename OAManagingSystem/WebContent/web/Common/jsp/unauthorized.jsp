@@ -1,5 +1,4 @@
 <%@page pageEncoding="UTF-8" %>
-<%@taglib uri="/struts-tags"  prefix="s" %>
 <%@include file="/web/Common/jsp/head.jsp" %>
 <body style="padding: 20px 50px" >
 <div style="padding: 0 50px" class="jumbotron">

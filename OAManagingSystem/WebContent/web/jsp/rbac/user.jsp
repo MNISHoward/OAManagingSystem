@@ -1,10 +1,9 @@
 <%@page pageEncoding="UTF-8" %>
+<%@taglib uri="http://www.ch.tag" prefix="ch" %>
 <%@include file="/web/Common/jsp/head.jsp" %>
 <body id="top-navbar-body" class="container-fluid">
-<%@include file="/web/Common/jsp/topNav.jsp" %>
-<%@include file="/web/Common/jsp/leftNav.jsp" %>
-
-<nav id="dept-nav" class="col-sm-offset-2" >
+<nav id="dept-nav">
+	<ch:depts value="depts" />
   <ul class="list-group" >
  	<li class="list-group-item"><a>总经理室</a></li>
 	<li class="list-group-item"><a class="has-child"><span class="glyphicon glyphicon-chevron-right" ></span>会计部</a>
@@ -21,7 +20,7 @@
 	<li class="list-group-item"><a>行政部</a></li>
   </ul>
 </nav>
-<section id="user-nav" class="col-sm-offset-2" >
+<section id="user-nav" >
 	<table class="table table-hover" >
 		<thead>
 			<tr>
@@ -30,12 +29,11 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>总经理<a href="<%=ctx %>/web/jsp/rbac/user.jsp">权限</a></td>
+				<td>总经理</td>
 			</tr>
 		</tbody>
 	</table>
 </section>
-
 <script type="text/javascript" src="<%=ctx %>/web/js/<%=fileName %>.js" ></script>
 </body>
 <%@include file="/web/Common/jsp/footer.jsp"  %>

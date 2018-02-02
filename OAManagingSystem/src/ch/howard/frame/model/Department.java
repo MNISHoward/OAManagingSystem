@@ -22,6 +22,7 @@ public class Department {
 	private String name;
 	private Department department;
 	private List<Department> departments;
+	private List<Staff> staffs;
 	
 	@Fetch(FetchMode.JOIN)
 	@ManyToOne
@@ -41,7 +42,6 @@ public class Department {
 	public void setDepartments(List<Department> departments) {
 		this.departments = departments;
 	}
-	private List<Staff> staffs;
 	
 	public Department() {
 		super();

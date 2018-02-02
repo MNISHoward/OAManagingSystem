@@ -1,4 +1,4 @@
-package ch.howard.rbac.model;
+package ch.howard.frame.model;
 
 import java.util.Set;
 
@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import ch.howard.rbac.model.Role;
+
 @Entity
 @Table(name="ch_menu")
 public class Menu {
@@ -25,9 +27,16 @@ public class Menu {
 	private Integer state;
 	private Resource resource;
 	private Set<Role> roles;
+	private String iconClass;
+	private String method;
 	
 	
-	
+	public String getIconClass() {
+		return iconClass;
+	}
+	public void setIconClass(String iconClass) {
+		this.iconClass = iconClass;
+	}
 	public Menu() {
 		super();
 	}
@@ -90,6 +99,12 @@ public class Menu {
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	public String getMethod() {
+		return method;
+	}
+	public void setMethod(String method) {
+		this.method = method;
 	}
 	
 	

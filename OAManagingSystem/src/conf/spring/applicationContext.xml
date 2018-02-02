@@ -174,8 +174,6 @@
 		<property name="entityManagerFactory" ref="entityManangerFactory"></property>
 	</bean>
 	
-	<aop:config></aop:config>
-	
 	<tx:annotation-driven transaction-manager="transactionManager"  />
 
 	<jpa:repositories base-package="ch.howard.*.dao" entity-manager-factory-ref="entityManangerFactory" />
