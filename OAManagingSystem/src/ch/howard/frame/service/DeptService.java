@@ -36,7 +36,7 @@ public class DeptService {
 		Cache cache = EhcacheUtil.getCache("resourceCache");
 		Element element = cache.get("departments");
 		if(element == null) {
-			depts = deptDao.findAll();
+			depts = deptDao.findByDepartmentsIsNull();
 			cache.put(new Element("departments", depts));
 			log.info("存储在缓存Ehcache中:" + depts);
 		}else {

@@ -93,7 +93,7 @@ public class RbacAction extends ActionSupport{
 		
 		
 		//获取部门
-		depts = (deptService.queryAllDept());
+		depts = deptService.queryAllDept();
 		return "user";
 	}
 

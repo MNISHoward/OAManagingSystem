@@ -21,7 +21,7 @@
     <script src="<%=ctx %>/web/Common/js/bootstrap.min.js"></script> 
     <script type="text/javascript" src="<%=ctx %>/web/Common/js/util.js" ></script>
     <script type="text/javascript" src="<%=ctx %>/web/Common/js/ajax.js" ></script>
-    <script type="text/javascript" src="<%=ctx %>/web/Common/js/script.js" async="async" ></script>
+    <script type="text/javascript" src="<%=ctx %>/web/Common/js/script.js" defer ></script>
     <script type="text/javascript" src="<%=ctx %>/web/Common/js/layer/layer.js" ></script>
     <script type="text/javascript" src="<%=ctx %>/web/Common/js/dialog.js" ></script>
 	<script type="text/javascript">

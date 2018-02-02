@@ -7,8 +7,9 @@ function init() {
 		display : "none",
 		marginLeft : function () {
 			var $marginLeft = $(this).parents('ul').css('marginLeft');
+			console.log($marginLeft);
 			var marginValue = $marginLeft.substring(0, $marginLeft.indexOf('px'));
-			return marginValue + 30 + 'px';
+			return (parseInt(marginValue) + 30) + 'px';
 		}
 	});
 	

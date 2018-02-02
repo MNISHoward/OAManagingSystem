@@ -62,6 +62,6 @@
 		   	 <button class="btn btn-primary" type="submit" id="logoutbtn"  >退出账号</button>
 		</section>
 	</section>
-<script type="text/javascript" src="<%=ctx %>/web/js/<%=fileName %>.js" ></script>
+<script type="text/javascript" src="<%=ctx %>/web/js<%=fileName %>.js" ></script>
 </body>
 <%@include file="/web/Common/jsp/footer.jsp"  %>
