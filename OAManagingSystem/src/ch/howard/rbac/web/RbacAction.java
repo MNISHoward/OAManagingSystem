@@ -8,12 +8,12 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import ch.howard.frame.model.Department;
 import ch.howard.frame.model.Resource;
-import ch.howard.frame.service.DeptService;
 import ch.howard.frame.service.IndexService;
 import ch.howard.frame.service.MenuService;
 import ch.howard.frame.service.ResourceService;
+import ch.howard.rbac.model.Department;
+import ch.howard.rbac.service.DeptService;
 
 @Controller
 public class RbacAction extends ActionSupport{

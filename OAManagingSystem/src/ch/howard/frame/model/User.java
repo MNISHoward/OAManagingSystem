@@ -19,6 +19,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import ch.howard.rbac.model.Role;
+import ch.howard.rbac.model.Staff;
 
 @Entity
 @Table(name="ch_user")

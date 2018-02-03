@@ -13,11 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.howard.frame.dao.StaffDAO;
 import ch.howard.frame.dao.UserDAO;
 import ch.howard.frame.exception.AppException;
-import ch.howard.frame.model.Staff;
 import ch.howard.frame.model.User;
+import ch.howard.rbac.dao.StaffDAO;
+import ch.howard.rbac.model.Staff;
 
 @Service
 public class UserRegisterService {

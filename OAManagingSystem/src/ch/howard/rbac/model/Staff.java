@@ -1,4 +1,4 @@
-package ch.howard.frame.model;
+package ch.howard.rbac.model;
 
 import java.util.Date;
 
@@ -28,13 +28,6 @@ public class Staff {
 	private String address;
 	private Double salary;
 	private String job;
-	public String getJob() {
-		return job;
-	}
-
-	public void setJob(String job) {
-		this.job = job;
-	}
 	private Department department;
 	
 	public Staff() {
@@ -122,5 +115,12 @@ public class Staff {
 		this.titleName = titleName;
 	}
 	
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
 	
 }

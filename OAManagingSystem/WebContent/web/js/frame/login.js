@@ -31,5 +31,5 @@ $('#regbtn').click(function (e) {
 				}
 			}
 		};
-		ajax.query(paramIn);
+	ajax.query(paramIn);
 });
