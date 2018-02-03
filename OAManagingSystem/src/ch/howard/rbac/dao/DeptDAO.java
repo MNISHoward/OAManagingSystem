@@ -1,12 +1,15 @@
-package ch.howard.frame.dao;
+package ch.howard.rbac.dao;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import ch.howard.frame.model.Department;
+import ch.howard.rbac.model.Department;
 
 public interface DeptDAO extends CrudRepository<Department, Integer> {
 
 	@Query(value = "select * from ch_dept where dept_id is null", nativeQuery=true)
 	public Iterable<Department> findByDepartmentsIsNull();
+	
+	@Query("select id from Department d where id = ?1 ")
+	public Object findDeptIdNotStaffs(Integer id);
 }

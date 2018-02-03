@@ -1,4 +1,4 @@
-package ch.howard.frame.model;
+package ch.howard.rbac.model;
 
 import java.util.List;
 
@@ -72,8 +72,7 @@ public class Department {
 		this.name = name;
 	}
 	
-	@Fetch(FetchMode.JOIN)
-	@OneToMany(mappedBy="department")
+	@OneToMany(mappedBy="department",fetch=FetchType.LAZY)
 	public List<Staff> getStaffs() {
 		return staffs;
 	}

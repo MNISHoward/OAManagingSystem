@@ -9,7 +9,7 @@ import org.apache.struts2.components.Component;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
-import ch.howard.frame.model.Department;
+import ch.howard.rbac.model.Department;
 
 /*
  * 
@@ -49,9 +49,9 @@ public class DeptComponent extends Component {
 		while(iterator.hasNext()) {
 			Department dept = iterator.next();
 			if(dept.getDepartments() == null || dept.getDepartments().size() <= 0) {
-				out.write("<li class=\"list-group-item\"><a>" + dept.getName() + "</a>");
+				out.write("<li class=\"list-group-item\"><a pid=" + dept.getId() + " >" + dept.getName() + "</a>");
 			}else{
-				out.write("<li class=\"list-group-item\"><a class=\"has-child\"><span class=\"glyphicon glyphicon-chevron-right\" ></span>" + dept.getName() + "</a>");
+				out.write("<li class=\"list-group-item\"><a pid=" + dept.getId() + " class=\"has-child\"><span class=\"glyphicon glyphicon-chevron-right\" ></span>" + dept.getName() + "</a>");
 				out.write("<ul class=\"list-group\" >");
 				deptIterator(dept.getDepartments(), out);
 				out.write("</ul>");

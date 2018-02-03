@@ -1,4 +1,4 @@
-package ch.howard.frame.service;
+package ch.howard.rbac.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.howard.frame.dao.DeptDAO;
-import ch.howard.frame.model.Department;
 import ch.howard.frame.util.EhcacheUtil;
+import ch.howard.rbac.dao.DeptDAO;
+import ch.howard.rbac.model.Department;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 

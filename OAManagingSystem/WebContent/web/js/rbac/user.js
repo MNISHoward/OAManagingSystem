@@ -7,7 +7,6 @@ function init() {
 		display : "none",
 		marginLeft : function () {
 			var $marginLeft = $(this).parents('ul').css('marginLeft');
-			console.log($marginLeft);
 			var marginValue = $marginLeft.substring(0, $marginLeft.indexOf('px'));
 			return (parseInt(marginValue) + 30) + 'px';
 		}
@@ -46,3 +45,48 @@ $('#dept-nav').find('a').not('.has-child').click(function (e) {
 	$('#dept-nav .active').removeClass('active');
 	$(target).addClass('active');
 })
+
+
+$('#dept-nav').find('a').click(function (e){
+	e.preventDefault();
+	
+	var target = e.target;
+	var pid = $(target).attr("pid");
+	
+	var JSON = {
+		"deptId" : pid,
+	}
+	
+	var paramIn = {
+			service : 'staffService',
+			method : 'queryStaffByDeptAndPageable',
+			param : JSON,
+			success : function (data){
+				if(data.rtnCode == ajax.rtnCode.SUCCESS) {
+					listStaff(data.param.list);
+				}else {
+					dialog.error(data.rtnMessage);
+				}
+			}
+		};
+	ajax.query(paramIn);
+}) 
+
+
+function listStaff(staffs) {
+	var userBody = $('#user-nav').find("tbody");
+	var $titleName, $job, $sex;
+	$(staffs).each(function (index, value2) {
+		$(value2).each(function (index, value) {
+			$titleName = $("<td></td>").text(value.titleName);
+			$job = $("<td></td>").text(value.job);
+				if(value.sex == 1)
+					$sex = $("<td></td>").text("男");
+				else 
+					$sex = $("<td></td>").text("女");
+		})
+	})
+	userBody.append($titleName);
+	userBody.append($sex);
+	userBody.append($job)
+}

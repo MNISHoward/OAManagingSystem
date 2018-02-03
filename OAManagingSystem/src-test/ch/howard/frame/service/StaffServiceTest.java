@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ch.howard.commonClass.BaseJunit4Test;
+import ch.howard.rbac.service.StaffService;
 
 public class StaffServiceTest extends BaseJunit4Test {
 

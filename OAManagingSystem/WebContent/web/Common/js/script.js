@@ -8,5 +8,8 @@ $('.leftnav-menu-a').click(function (e) {
 	var target = e.target;
 	var $a = $(target);
 	var url = $a.attr('href');
-	$('#right-main').load(ctx + url);
+	if(url !== undefined) {
+		$('#right-main').load(ctx + url);
+	}
+	
 });

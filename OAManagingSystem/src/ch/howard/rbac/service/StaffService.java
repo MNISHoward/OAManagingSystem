@@ -1,7 +1,8 @@
-package ch.howard.frame.service;
+package ch.howard.rbac.service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -11,13 +12,19 @@ import org.apache.shiro.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import ch.howard.frame.dao.DeptDAO;
-import ch.howard.frame.dao.StaffDAO;
-import ch.howard.frame.model.Staff;
 import ch.howard.frame.shiro.service.UserLoginService;
 import ch.howard.frame.web.IndexAction;
+import ch.howard.rbac.dao.DeptDAO;
+import ch.howard.rbac.dao.StaffDAO;
+import ch.howard.rbac.model.Department;
+import ch.howard.rbac.model.Staff;
 
 @Service
 public class StaffService {
@@ -54,6 +61,21 @@ public class StaffService {
 		log.info("修改成功: email :" + staff.getEmail() + ", phone :" + staff.getPhone() + ", address :" + staff.getAddress());
 		outMap.put("message", "修改成功");
 		return outMap;
+	}
+	
+	
+	public List<Staff> queryStaffByDeptAndPageable(Map<String, Object> inMap) {
+		log.info("执行StaffService.queryStaffByDeptAndPageable");
+		String did = (String) inMap.get("deptId");
+		Sort sort = new Sort(Direction.ASC, "id");
+		Pageable pageable = new PageRequest(0, 7, sort);
+		log.info("对staff进行分页，根据id排序操作");
+		Integer deptid = (Integer) deptDao.findDeptIdNotStaffs(Integer.valueOf(did));
+		Department dept = new Department();
+		dept.setId(deptid);
+		Page<Staff> pageStaff = staffDao.findByDepartment(pageable, dept);
+		List<Staff> staffs = pageStaff.getContent();
+		return staffs;
 	}
 	
 }

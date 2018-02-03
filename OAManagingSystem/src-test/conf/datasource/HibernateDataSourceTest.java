@@ -10,12 +10,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ch.howard.commonClass.BaseJunit4Test;
-import ch.howard.frame.dao.DeptDAO;
-import ch.howard.frame.dao.StaffDAO;
-import ch.howard.frame.model.Department;
-import ch.howard.frame.model.Staff;
-import ch.howard.frame.service.DeptService;
-import ch.howard.frame.service.StaffService;
+import ch.howard.rbac.dao.DeptDAO;
+import ch.howard.rbac.dao.StaffDAO;
+import ch.howard.rbac.model.Department;
+import ch.howard.rbac.model.Staff;
+import ch.howard.rbac.service.DeptService;
+import ch.howard.rbac.service.StaffService;
 
 public class HibernateDataSourceTest extends BaseJunit4Test {
 	
