@@ -21,7 +21,7 @@ var dialog = {
 				skin : 'demo-class',
 				yes : function (index, layero) {
 					layer.close(index);
-				},
+				}
 			})
 		},
 		confirm: function (message, url) {
@@ -32,6 +32,17 @@ var dialog = {
 				yes : function () {
 					window.location = url;
 				},
+				btn2 : function (index, layero) {
+					layer.close(index);
+				}
+			});
+		},
+		confirmFun: function (message, successfunc) {
+			layer.open({
+				title : '确认提示',
+				btn : ['确认', '取消'],
+				content : message,
+				yes : successfunc,
 				btn2 : function (index, layero) {
 					layer.close(index);
 				}

@@ -52,10 +52,12 @@ public class UserRealm extends AuthorizingRealm {
     		throw new UnknownAccountException();
     	}
 		User u = userDao.findByUsername(username);
+		if(u == null) {
+			throw new UnknownAccountException();
+		}
 		if(u.getState() == 1) {
 			throw new LockedAccountException();
 		}
-		String principal = upToken.getUsername();
 		String realmName = getName();
 		ByteSource credentialsSalt = ByteSource.Util.bytes(upToken.getUsername());
 		

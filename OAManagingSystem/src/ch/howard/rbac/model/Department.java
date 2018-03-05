@@ -1,8 +1,8 @@
 package ch.howard.rbac.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,8 +21,8 @@ public class Department {
 	private Integer id;
 	private String name;
 	private Department department;
-	private List<Department> departments;
-	private List<Staff> staffs;
+	private List<Department> departments = new ArrayList<Department>();
+	private List<Staff> staffs = new ArrayList<Staff>();
 	
 	@Fetch(FetchMode.JOIN)
 	@ManyToOne

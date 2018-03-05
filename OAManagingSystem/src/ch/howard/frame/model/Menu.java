@@ -1,5 +1,6 @@
 package ch.howard.frame.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -26,9 +27,8 @@ public class Menu {
 	private String url;
 	private Integer state;
 	private Resource resource;
-	private Set<Role> roles;
+	private Set<Role> roles = new HashSet<Role>();
 	private String iconClass;
-	private String method;
 	
 	
 	public String getIconClass() {
@@ -47,6 +47,31 @@ public class Menu {
 		this.url = url;
 		this.state = state;
 		this.resource = resource;
+	}
+	
+	public Menu(Integer id, Integer state,String titleName, String url) {
+		super();
+		this.id = id;
+		this.state = state;
+		this.titleName = titleName;
+		this.url = url;
+	}
+	
+	public Menu(Integer id, Integer state, String name, String titleName, String url,  Integer resourceId,
+			String iconClass) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.titleName = titleName;
+		this.url = url;
+		this.state = state;
+		this.resource = new Resource();
+		this.resource.setId(resourceId);
+		this.iconClass = iconClass;
+	}
+	public Menu(Integer id) {
+		super();
+		this.id = id;
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -100,13 +125,13 @@ public class Menu {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	public String getMethod() {
-		return method;
-	}
-	public void setMethod(String method) {
-		this.method = method;
+	
+	public void addRole(Role r) {
+		this.roles.add(r);
 	}
 	
-	
+	public void removeRole(Role r) {
+		this.roles.remove(r);
+	}
 	
 }

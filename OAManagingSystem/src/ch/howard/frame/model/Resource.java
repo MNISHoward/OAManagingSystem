@@ -1,5 +1,6 @@
 package ch.howard.frame.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ public class Resource {
 	private String titleName;
 	private String url;
 	private Integer state;
-	private List<Menu> menus;
+	private List<Menu> menus = new ArrayList<Menu>();
 	
 	
 	public Resource() {
@@ -34,6 +35,14 @@ public class Resource {
 		this.titleName = titleName;
 		this.url = url;
 		this.state = state;
+	}
+	
+	public Resource(Integer id, String name, String titleName, String url) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.titleName = titleName;
+		this.url = url;
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

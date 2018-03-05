@@ -112,6 +112,9 @@
                 <entry key="rememberMe" >
                 	<bean class="ch.howard.frame.shiro.filter.RememberMeFilter" ></bean>
                 </entry>
+                <entry key="anyofroles" >
+                	<bean class="ch.howard.frame.shiro.filter.AnyOfRolesAuthorizationFilter" ></bean>
+                </entry>
             </map>
         </property>
         <!-- 
@@ -177,5 +180,7 @@
 	<tx:annotation-driven transaction-manager="transactionManager"  />
 
 	<jpa:repositories base-package="ch.howard.*.dao" entity-manager-factory-ref="entityManangerFactory" />
+	<!-- 开启aop编程 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
 </beans>

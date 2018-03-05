@@ -33,13 +33,24 @@ public class IndexAction extends ActionSupport {
 	
 	private Iterable<Resource> resources;
 	
+	private Integer rid;
+	private Resource resource;
+	
 	public Iterable<Resource> getResources() {
 		return resources;
+	}
+	
+	public void setRid(Integer rid) {
+		this.rid = rid;
+	}
+	
+	public Resource getResource() {
+		return resource;
 	}
 
 	@Override
 	public String execute() throws Exception {
-		log.info("执行IndexAction.execute");
+		log.info("执行IndexAction的execute开始");
 		//判断session中user项是否有值
 		if(!indexService.verifyUserInSession()) {
 			return "login";
@@ -48,9 +59,18 @@ public class IndexAction extends ActionSupport {
 		//获取资源项
 		resources = resourceService.queryResource();
 		
-		
+		//获取资源中的菜单项
+		if(rid != null) {
+			resource = resourceService.queryResourceById(rid, resources);
+		}
 		
 		return "success";
 	}
 	
+	
+	
+	public String calendarExecute() {
+		
+		return "calendar";
+	}
 }

@@ -8,12 +8,17 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import ch.howard.frame.model.Menu;
 import ch.howard.frame.model.Resource;
+import ch.howard.frame.model.User;
 import ch.howard.frame.service.IndexService;
 import ch.howard.frame.service.MenuService;
 import ch.howard.frame.service.ResourceService;
+import ch.howard.frame.service.UserService;
 import ch.howard.rbac.model.Department;
+import ch.howard.rbac.model.Role;
 import ch.howard.rbac.service.DeptService;
+import ch.howard.rbac.service.RoleService;
 
 @Controller
 public class RbacAction extends ActionSupport{
@@ -23,8 +28,10 @@ public class RbacAction extends ActionSupport{
 	private Iterable<Resource> resources;
 	private Resource resource;
 	private Integer rid;
-	private Integer mid;
 	private Iterable<Department> depts;
+	private Iterable<Role> roles;
+	private Iterable<User> users;
+	private Iterable<Menu> menus;
 	
 	@Autowired
 	private ResourceService resourceService;
@@ -34,10 +41,10 @@ public class RbacAction extends ActionSupport{
 	private MenuService menuService;
 	@Autowired
 	private DeptService deptService;
-	
-	public void setMid(Integer mid) {
-		this.mid = mid;
-	}
+	@Autowired
+	private RoleService roleService;
+	@Autowired
+	private UserService userService;
 	
 
 	public void setRid(Integer rid) {
@@ -55,10 +62,21 @@ public class RbacAction extends ActionSupport{
 	public Iterable<Department> getDepts() {
 		return depts;
 	}
+	
+	public Iterable<Role> getRoles() {
+		return roles;
+	}
+	
+	public Iterable<User> getUsers() {
+		return users;
+	}
+
+	public Iterable<Menu> getMenus() {
+		return menus;
+	}
 
 	@Override
 	public String execute() throws Exception {
-		log.info("执行RabcAction.execute");
 		//验证session中user项是否有值
 		if(!indexService.verifyUserInSession()) {
 			return "login";
@@ -72,35 +90,54 @@ public class RbacAction extends ActionSupport{
 			resource = resourceService.queryResourceById(rid, resources);
 		}
 		
-		//跳转到菜单对应的方法
-		if(mid != null && resource != null) {
-			String method = menuService.queryMenuMethod(mid, resource.getMenus());
-			switch (method) {
-			case "userExecute":
-				//值栈里面存在mid的值，导致访问控制跳到对应方法
-				mid = null;
-				return userExecute();
-			default:
-				break;
-			}
-		}
-		
 		return "success";
 	}
 	
+	/**
+	 * 用户管理
+	 * 
+	 * @return
+	 */
 	public String userExecute() {
-		log.info("执行RbacAction.userExecute");
-		
 		
 		//获取部门
 		depts = deptService.queryAllDept();
+		//获取角色
+		roles = roleService.getAllRole();
 		return "user";
 	}
-
-
-
-
 	
+	/**
+	 * 角色管理
+	 * 
+	 * @return
+	 */
+	public String roleExecute() {
+		//获取角色
+		roles = roleService.getAllRole();
+		users = userService.queryAllUserNoStaffAndRoles();
+		menus = menuService.queryAllMenusNoResourceAndRoles();
+		return "role";
+	}
+	
+	/**
+	 * 菜单管理
+	 * @return
+	 */
+	public String menuExecute() {
+		menus = menuService.queryAllMenusNoResourceAndRoles();
+		resources = resourceService.queryResource();
+		return "menu";
+	}
+	
+	/**
+	 * 资源管理
+	 * @return
+	 */
+	public String resourceExecute() {
+		resources = resourceService.queryResource();
+		return "resource";
+	}
 	
 	
 }

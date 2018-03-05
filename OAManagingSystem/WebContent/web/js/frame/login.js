@@ -7,7 +7,7 @@ $('#loginbtn').click(function (e) {
 		param : JSON,
 		success : function (data){
 			if(data.rtnCode == ajax.rtnCode.SUCCESS) {
-				dialog.success(data.param.message, ctx + "/index.do");
+				dialog.success(data.param.message, ctx + "/index.do?rid=1");
 			}else {
 				dialog.error(data.rtnMessage);
 			}

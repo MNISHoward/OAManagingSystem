@@ -1,4 +1,4 @@
-package ch.howard.frame.shiro.action;
+package ch.howard.frame.shiro.web;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +16,6 @@ public class LoginAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		log.info("执行LoginAction.execute");
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		if(session.getAttribute("user") != null)
 			return "index";

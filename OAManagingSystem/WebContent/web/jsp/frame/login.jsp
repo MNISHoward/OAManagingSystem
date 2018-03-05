@@ -1,5 +1,4 @@
 <%@page pageEncoding="UTF-8" %>
-<%@taglib uri="http://www.ch.tag" prefix="ch" %>
 <%@include file="/web/Common/jsp/head.jsp" %>
 <body>
   <nav class="navbar navbar-default">

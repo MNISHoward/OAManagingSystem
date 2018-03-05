@@ -29,24 +29,43 @@ public class FilterChainFactoryBuilder {
 	    map.put("/web/Common/js/**", "anon");
 	    map.put("/web/js/**", "anon");
 	    
-	    map.put("/index.do", "rememberMe, user");
+	    map.put("/index.do", "rememberMe");
 	    
 	    map.put("/logout", "logout");
 	    
 	    Iterable<Role> roles = roleDao.findAll();
 	    Iterator<Role> iterRoles = roles.iterator();
-	    while(iterRoles.hasNext()) {
+	    while(iterRoles.hasNext()) { //如果角色有菜单栏的权限，同时就具有该菜单栏的资源权限
 	    	Role role = iterRoles.next();
 	    	Iterator<Menu> iterMenus = role.getMenus().iterator();
-	    	if(iterMenus.hasNext()) {
+	    	while(iterMenus.hasNext()) {
 	    		Menu menu = iterMenus.next();
 	    		String url = menu.getUrl();
-	    		if(map.containsKey(url)) {
+	    		String reUrl = menu.getResource().getUrl();
+	    		if(map.containsKey(url)) {  //判断linkedmap里是否有菜单栏的权限 
 	    			String roleValue = map.get(url);
-	    			roleValue = roleValue.substring(0, roleValue.length()-1) + "," + role.getName() + "]";
+	    			roleValue = roleValue.substring(0, roleValue.length()-2) + "," + role.getName() + "\"]";
 	    			map.put(url, roleValue);
+	    			if(map.containsKey(reUrl)) { //判断linkedmap里是否有对应资源栏的权限
+	    				String resRoleValue = map.get(reUrl);
+	    				if(resRoleValue.indexOf(role.getName()) == -1) {
+	    					resRoleValue = resRoleValue.substring(0, resRoleValue.length()-2) + "," + role.getName() + "\"]";
+    						map.put(reUrl, resRoleValue);
+	    				}
+	    			}else {
+	    				map.put(reUrl, "anyofroles[\"" + role.getName() + "\"]");
+	    			}
 	    		}else {
-	    			map.put(url, "roles[\"" + role.getName() + "\"]");
+	    			map.put(url, "anyofroles[\"" + role.getName() + "\"]");
+	    			if(map.containsKey(reUrl)) { //判断linkedmap里是否有对应资源栏的权限
+	    				String resRoleValue = map.get(reUrl);
+	    				if(resRoleValue.indexOf(role.getName()) == -1) {
+		    				resRoleValue = resRoleValue.substring(0, resRoleValue.length()-2) + "," + role.getName() + "\"]";
+		    				map.put(reUrl, resRoleValue);
+	    				}
+	    			}else {
+	    				map.put(reUrl, "anyofroles[\"" + role.getName() + "\"]");
+	    			}
 	    		}
 	    	}
 	    }

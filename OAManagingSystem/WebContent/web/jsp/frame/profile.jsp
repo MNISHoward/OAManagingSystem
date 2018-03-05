@@ -1,6 +1,4 @@
 <%@page pageEncoding="UTF-8" %>
-<%@taglib uri="/struts-tags" prefix="s" %>
-<%@taglib uri="http://www.ch.tag" prefix="ch" %>
 <%@include file="/web/Common/jsp/head.jsp" %>
 <body>
 	<section class="main-content" >

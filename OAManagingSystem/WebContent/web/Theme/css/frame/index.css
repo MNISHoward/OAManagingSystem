@@ -1,0 +1,13 @@
+#company-banner {
+	margin-left:-30px;
+}
+
+#right-main h4 {
+	font-weight: bold;
+}
+
+#right-main .page-header {
+	padding-bottom : 0px;
+	margin: 0px 0 10px 0;
+    border-bottom: 1px solid #eee;
+}

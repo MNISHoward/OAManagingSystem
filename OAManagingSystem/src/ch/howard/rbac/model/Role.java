@@ -32,6 +32,16 @@ public class Role {
 	public Role() {
 		super();
 	}
+	
+	public Role(Integer id, String titleName, Integer state) {
+		super();
+		this.id = id;
+		this.titleName = titleName;
+		this.state = state;
+	}
+
+
+
 	public Role(String name, String titleName, Integer state) {
 		super();
 		this.name = name;
@@ -96,8 +106,17 @@ public class Role {
 		this.users.add(u);
 	}
 	
+	public void removeUser(User u) {
+		this.users.remove(u);
+	}
+	
 	public void addMenu(Menu m) {
 		this.menus.add(m);
 	}
+	
+	public void removeMenu(Menu m) {
+		this.menus.remove(m);
+	}
+	
 	
 }

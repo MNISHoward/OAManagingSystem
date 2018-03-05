@@ -31,6 +31,11 @@ public class DeptService {
 		
 	}
 	
+	/**
+	 * 查询所有部门，存储缓存
+	 * 
+	 * @return
+	 */
 	public Iterable<Department> queryAllDept() {
 		Iterable<Department> depts;
 		Cache cache = EhcacheUtil.getCache("resourceCache");

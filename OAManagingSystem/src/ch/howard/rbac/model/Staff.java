@@ -2,13 +2,13 @@ package ch.howard.rbac.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -29,13 +29,15 @@ public class Staff {
 	private Double salary;
 	private String job;
 	private Department department;
+	private Integer hasUser = new Integer(0);
 	
 	public Staff() {
 	}
 	 
-	public Staff(String name, String titleName, Integer sex, Date birthday, String email, String phone,
-			String address, Double salary, Department department, String job) {
+	public Staff(Integer id, String name, String titleName, Integer sex, Date birthday, String email, String phone,
+			String address, Double salary, String job, Department department) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.titleName = titleName;
 		this.sex = sex;
@@ -44,9 +46,10 @@ public class Staff {
 		this.phone = phone;
 		this.address = address;
 		this.salary = salary;
-		this.department = department;
 		this.job = job;
+		this.department = department;
 	}
+
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -122,5 +125,16 @@ public class Staff {
 	public void setJob(String job) {
 		this.job = job;
 	}
+	
+	@Column(name="has_user")
+	public Integer getHasUser() {
+		return hasUser;
+	}
+
+	public void setHasUser(Integer hasUser) {
+		this.hasUser = hasUser;
+	}
+	
+	
 	
 }

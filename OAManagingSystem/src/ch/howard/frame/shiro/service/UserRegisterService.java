@@ -30,7 +30,6 @@ public class UserRegisterService {
 	private UserDAO userDao;
 	
 	public Map<String, Object> userRegister(Map<String, Object> inMap) {
-		log.info("执行UserRegisterService.userRegister");
 		String username = (String) inMap.get("reginame");
 		String password = (String) inMap.get("regipass");
 		Staff staff = staffDao.findByName(username);
@@ -44,6 +43,8 @@ public class UserRegisterService {
 				int hashIterations = 10;
 				SimpleHash encodePass = new SimpleHash("MD5", password, salt, hashIterations);
 				User u = new User(username,encodePass.toString(), new Date(), 0,staff);
+				staff.setHasUser(1);
+				staffDao.save(staff);
 				userDao.save(u);
 				log.info("注册成功 :" + username);
 				outMap.put("message", "注册成功 : " + username + "，请登录。");

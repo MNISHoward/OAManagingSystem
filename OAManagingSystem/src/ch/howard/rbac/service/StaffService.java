@@ -20,11 +20,15 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import ch.howard.frame.shiro.service.UserLoginService;
+import ch.howard.frame.util.EhcacheUtil;
 import ch.howard.frame.web.IndexAction;
 import ch.howard.rbac.dao.DeptDAO;
 import ch.howard.rbac.dao.StaffDAO;
 import ch.howard.rbac.model.Department;
+import ch.howard.rbac.model.Role;
 import ch.howard.rbac.model.Staff;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.Element;
 
 @Service
 public class StaffService {
@@ -35,8 +39,13 @@ public class StaffService {
 	
 	@Autowired
 	private StaffDAO staffDao;
-	@Autowired
-	private DeptDAO deptDao;
+	
+	/**
+	 * 根据staffid来更新员工邮箱，手机，地址信息
+	 * 
+	 * @param inMap
+	 * @return
+	 */
 	
 	@Transactional
 	public Map<String,Object> updateStaffEPA(Map<String, Object> inMap) {
@@ -63,19 +72,36 @@ public class StaffService {
 		return outMap;
 	}
 	
+	/**
+	 * 员工分页排序查询功能
+	 * 
+	 * @param inMap
+	 * @return
+	 */
 	
-	public List<Staff> queryStaffByDeptAndPageable(Map<String, Object> inMap) {
+	public Map<String, Object> queryStaffByDeptAndPageable(Map<String, Object> inMap) {
 		log.info("执行StaffService.queryStaffByDeptAndPageable");
+		Page<Staff> pageStaff;
 		String did = (String) inMap.get("deptId");
+		Integer page = (Integer) inMap.get("page");
 		Sort sort = new Sort(Direction.ASC, "id");
-		Pageable pageable = new PageRequest(0, 7, sort);
+		Pageable pageable = new PageRequest(page, 5, sort);
 		log.info("对staff进行分页，根据id排序操作");
-		Integer deptid = (Integer) deptDao.findDeptIdNotStaffs(Integer.valueOf(did));
-		Department dept = new Department();
-		dept.setId(deptid);
-		Page<Staff> pageStaff = staffDao.findByDepartment(pageable, dept);
-		List<Staff> staffs = pageStaff.getContent();
-		return staffs;
+		Cache cache = EhcacheUtil.getCache("resourceCache");
+		Element element = cache.get("staffs" + page + did);
+		if(element == null) {
+			Department dept = new Department();
+			dept.setId(Integer.valueOf(did));
+			pageStaff = staffDao.findByDepartment(pageable, dept);
+			cache.put(new Element("staffs" + page + did, pageStaff));
+			log.info("存储在缓存Ehcache中:" + pageStaff);
+		}else {
+			pageStaff = (Page<Staff>) element.getObjectValue();
+			log.info("从缓存Ehcache中获取" + element.getObjectKey());
+		}
+		outMap.put("staffs", pageStaff.getContent());
+		outMap.put("totalPages", pageStaff.getTotalPages());
+		return outMap;
 	}
 	
 }

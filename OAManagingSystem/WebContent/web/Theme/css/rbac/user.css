@@ -1,0 +1,52 @@
+#user-nav th,
+#user-nav td{
+	text-align: center;
+}
+
+#user-nav .glyphicon {
+	position: relative;
+	cursor: pointer;
+}
+
+#user-nav .glyphicon:active{
+	top: 2px;
+}
+
+.user-modal-lg .passwordForm {
+	margin: 0 -10px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.user-modal-lg .passwordForm input {
+	width : 165px;
+}
+
+.user-modal-lg .form-group {
+	margin-left: 10px;
+}
+
+.user-modal-lg .reFormGroup{
+	margin: 0 20px;
+}
+
+.user-modal-lg .roleForm {
+	margin-top: 20px;
+}
+
+.user-modal-lg .roleForm h4 {
+	display:inline-block;
+	font-size: 1.2em;
+	margin: 0 0 20px 0;
+}
+
+#saveRoleBtn {
+	float: right;
+	position: relative;
+	left: -6px;
+}
+
+#user-nav .nav-pagination ul {
+	display: block;
+	margin-bottom : 0px;
+}

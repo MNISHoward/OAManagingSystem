@@ -50,6 +50,8 @@
    		</global-results>
     	<action name="index" class="indexAction" >
     		<result>web/jsp/frame/index.jsp</result>
+    		<result name="calendar" >web/jsp/frame/calendar.jsp</result>
+    		<allowed-methods>calendarExecute</allowed-methods>
     	</action>
     	
     	<action name="login" class="loginAction" >
@@ -60,6 +62,10 @@
     	<action name="rbac" class="rbacAction" >
     		<result>web/jsp/rbac/rbac.jsp</result>
     		<result name="user" >web/jsp/rbac/user.jsp</result>
+    		<result name="role" >web/jsp/rbac/role.jsp</result>
+    		<result name="menu" >web/jsp/rbac/menu.jsp</result>
+    		<result name="resource" >web/jsp/rbac/resource.jsp</result>
+    		<allowed-methods>userExecute,roleExecute,menuExecute,resourceExecute</allowed-methods>
     	</action>
     </package>
 

@@ -7,8 +7,10 @@
  */
 
 #left-navbar {
-    padding: 0px;
+	margin-top: -70px;
+    padding: 70px 0 0 0;
     height: 100%;
+    float: left;
     position:absolute;
     background: -webkit-linear-gradient(top, #71757e 0%, #242934 100%);
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.opensymphony.xwork2.ActionProxy;
 
 import ch.howard.commonClass.StrutsSpringTest;
-import ch.howard.frame.shiro.action.LoginAction;
+import ch.howard.frame.shiro.web.LoginAction;
 
 public class LoginActionTest extends StrutsSpringTest {
 

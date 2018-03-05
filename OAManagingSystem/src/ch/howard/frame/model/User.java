@@ -1,7 +1,7 @@
 package ch.howard.frame.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -30,7 +30,7 @@ public class User {
 	private Date loginTime;
 	private Integer state;
 	private Staff staff;
-	private Set<Role> roles; 
+	private Set<Role> roles = new HashSet<Role>(); 
 	
 	@Fetch(FetchMode.JOIN)
 	@ManyToMany
@@ -62,7 +62,24 @@ public class User {
 		this.state = state;
 		this.staff = staff;
 	}
-
+	
+	public User(Set<Role> roles,Staff staff) {
+		super();
+		this.staff = staff;
+		this.roles = roles;
+	}
+	
+	public User(Integer id, String username, Integer state) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.state = state;
+	}
+	
+	public User(Integer id) {
+		super();
+		this.id = id;
+	}
 
 	@Column(name="state", columnDefinition="int default 0")
 	public Integer getState() {
@@ -111,5 +128,7 @@ public class User {
 		this.roles.add(r);
 	}
 	
-	
+	public void removeRole(Role r) {
+		this.roles.remove(r);
+	}
 }

@@ -13,12 +13,15 @@
 
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#"><span class=" glyphicon glyphicon-home"></span></a></li>
-                <li><a href="#">收件箱</a></li>
-                <s:iterator value="resources" >
-          		 <s:if test="state == 0" >
-          		  <li><a href='<%=ctx %><s:property value="url" />?rid=<s:property value="id" />'><s:property value="titleName" /></a></li>
+                <s:iterator value="resources" var="r" >
+                 <s:if test="#r.id == 1" >
+                 	<li><a href='<s:property value="#r.url" />?rid=<s:property value="#r.id" />'><span class=" glyphicon glyphicon-home"></span></a></li>
+                 </s:if>
+                 <s:else>
+          		 <s:if test="#r.state == 0" >
+          		 	 <li><a href='<s:property value="#r.url" />?rid=<s:property value="#r.id" />'><s:property value="titleName" /></a></li>
                	 </s:if>
+               	 </s:else>
                 </s:iterator>
             </ul>
 

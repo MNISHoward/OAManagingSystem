@@ -1,6 +1,5 @@
 package conf.datasource;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,10 +9,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ch.howard.commonClass.BaseJunit4Test;
+import ch.howard.frame.dao.MenuDAO;
+import ch.howard.frame.model.Menu;
+import ch.howard.frame.model.Resource;
 import ch.howard.rbac.dao.DeptDAO;
 import ch.howard.rbac.dao.StaffDAO;
 import ch.howard.rbac.model.Department;
-import ch.howard.rbac.model.Staff;
 import ch.howard.rbac.service.DeptService;
 import ch.howard.rbac.service.StaffService;
 
@@ -33,6 +34,17 @@ public class HibernateDataSourceTest extends BaseJunit4Test {
 	
 	@Autowired
 	StaffDAO staffDao;
+	
+	@Autowired
+	MenuDAO menuDao;
+	
+	@Test
+	public void menuData() {
+		Resource resource = new Resource();
+		resource.setId(1);
+		Menu m = new Menu("resourceManage", "资源管理", "/rabc.do", 0, resource);
+		menuDao.save(m);
+	}
 	
 	@Test
 	public void testDept2() {
@@ -62,8 +74,8 @@ public class HibernateDataSourceTest extends BaseJunit4Test {
 	
 	@Test
 	public void testJPA() {
-		Staff staff = new Staff("chenghao", "财务经理", 0, new Date(), "ch@howard.com", "10086", "ChinaGuangzhouHanghaixueyuan", 10000.00, deptDao.findOne(5), "财务经理");
-		staffDao.save(staff);
+		//Staff staff = new Staff("chenghao", "财务经理", 0, new Date(), "ch@howard.com", "10086", "ChinaGuangzhouHanghaixueyuan", 10000.00, deptDao.findOne(5), "财务经理");
+		//staffDao.save(staff);
 	}
 	
 	
