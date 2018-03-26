@@ -1,0 +1,89 @@
+.outbox-h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#outbox-body .outbox-detail{
+	border: none;
+	font-size: 1em;
+	padding:5px;
+	vertical-align: middle;
+}
+#outbox-body .outbox-title {
+	margin-bottom: 10px;
+}
+
+#outbox-body .outbox-title:hover,
+#outbox-body .outbox-title:active,
+#outbox-body .outbox-title:focus {
+	background: transparent;
+}
+
+#outbox-body .outbox-detail .list-group-item-heading {
+	font-size: 1em;
+	margin: 0px;
+	font-weight: inherit;
+}
+
+#outbox-body .outbox-detail .list-group-item-heading .heading-sendPerson {
+	float:left;
+	margin-right: 10%;
+	width: 15%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+#outbox-body .outbox-detail .list-group-item-heading .heading-title {
+	max-width: 20%;
+	float:left;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+#outbox-body .outbox-detail .list-group-item-heading .heading-summary {
+	max-width: 45%;
+	float:left;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	color: #a0a0a0;
+}
+
+#outbox-body .outbox-detail .list-group-item-heading .heading-sendTime {
+	float:right;
+}
+
+#outbox-nav .nav-pagination {
+	display: none;
+}
+
+#outbox-content-detail {
+	display: none;
+}
+
+#outbox-content-person {
+	display: inline-block;
+	font-size: 1.2em;
+	font-weight: normal;
+}
+
+
+#outbox-content-person .content-person-email {
+	color: #7f7f7f
+}
+
+#outbox-content-person .content-person-time {
+	display: block;
+	
+}
+#outbox-content-back,#outbox-content-delete,#outbox-content-edit {
+	float:right;
+	margin: 17px 20px 30px 0;
+}
+
+#outbox-content-title {
+	font-size: 1.2em;
+	font-weight: bold;
+}

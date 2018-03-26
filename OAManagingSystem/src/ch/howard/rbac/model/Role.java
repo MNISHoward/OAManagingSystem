@@ -25,6 +25,10 @@ public class Role {
 	private Integer id;
 	private String name;
 	private String titleName;
+	/**
+	 * 0正常
+	 * 1非正常
+	 */
 	private Integer state;
 	private Set<Menu> menus = new HashSet<Menu>();
 	private Set<User> users = new HashSet<User>();

@@ -1,6 +1,9 @@
 package ch.howard.rbac.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -40,15 +43,37 @@ public class DeptService {
 		Iterable<Department> depts;
 		Cache cache = EhcacheUtil.getCache("resourceCache");
 		Element element = cache.get("departments");
-		if(element == null) {
+		Element element2 = cache.get("deptUpdate");
+		if(element == null || (element2 != null && (Boolean)element2.getObjectValue() == true )) {
 			depts = deptDao.findByDepartmentsIsNull();
 			cache.put(new Element("departments", depts));
 			log.info("存储在缓存Ehcache中:" + depts);
+			
+			cache.put(new Element("deptUpdate", Boolean.FALSE));
+			log.info("dept缓存已经更新");
 		}else {
 			depts = (Iterable<Department>) element.getObjectValue();
 			log.info("从缓存Ehcache中获取" + element.getObjectKey());
 		}
 		return depts;
+	}
+	/**
+	 * 把所有子部门都放进list
+	 * @param depts
+	 * @param depts1
+	 */
+	public void allDept(Iterable<Department> depts, List<Department> depts1) {
+		Iterator<Department> iterator = depts.iterator();
+		while(iterator.hasNext()) {
+			Department next = iterator.next();
+			if(next.getDepartments() == null || next.getDepartments().size() <= 0) {
+				depts1.add(next);
+			}else {
+				depts1.add(next);
+				allDept(next.getDepartments(), depts1);
+			}
+			
+		}
 	}
 	
 }

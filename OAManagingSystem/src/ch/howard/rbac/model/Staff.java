@@ -21,6 +21,10 @@ public class Staff {
 	private Integer id;
 	private String name;
 	private String titleName;
+	/**
+	 * 0男
+	 * 1女
+	 */
 	private Integer sex;
 	private Date birthday;
 	private String email;
@@ -33,7 +37,10 @@ public class Staff {
 	
 	public Staff() {
 	}
-	 
+	public Staff(Integer id) {
+		super();
+		this.id = id;
+	}
 	public Staff(Integer id, String name, String titleName, Integer sex, Date birthday, String email, String phone,
 			String address, Double salary, String job, Department department) {
 		super();
@@ -50,6 +57,11 @@ public class Staff {
 		this.department = department;
 	}
 
+	public Staff(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -134,7 +146,12 @@ public class Staff {
 	public void setHasUser(Integer hasUser) {
 		this.hasUser = hasUser;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Staff [id=" + id + ", name=" + name + ", titleName=" + titleName + ", sex=" + sex + ", birthday="
+				+ birthday + ", email=" + email + ", phone=" + phone + ", address=" + address + ", salary=" + salary
+				+ ", job=" + job + ", department=" + department + ", hasUser=" + hasUser + "]";
+	}
 	
 }

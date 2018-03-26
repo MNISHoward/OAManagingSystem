@@ -8,12 +8,14 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import ch.howard.frame.model.Menu;
 import ch.howard.frame.shiro.service.UserLoginService;
 import ch.howard.rbac.dao.RoleDAO;
 import ch.howard.rbac.model.Role;
 
+@Component
 public class FilterChainFactoryBuilder {
 	
 	private static final transient Logger log = LoggerFactory.getLogger(FilterChainFactoryBuilder.class);
@@ -27,6 +29,7 @@ public class FilterChainFactoryBuilder {
         map.put("/ajax/ajax.do", "anon");
 	    map.put("/web/Theme/**", "anon");
 	    map.put("/web/Common/js/**", "anon");
+	    map.put("/web/Common/ueditor/**", "anon");
 	    map.put("/web/js/**", "anon");
 	    
 	    map.put("/index.do", "rememberMe");

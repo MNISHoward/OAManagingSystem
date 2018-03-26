@@ -1,5 +1,6 @@
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip();
+	$('#resource-nav').height($(window).height()-150);
 })
 
 /**

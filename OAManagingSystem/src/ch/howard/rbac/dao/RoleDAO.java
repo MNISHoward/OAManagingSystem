@@ -17,4 +17,5 @@ public interface RoleDAO extends CrudRepository<Role, Integer>{
 	public Set<Role> findByIdIn(Collection<Integer> ids);
 
 	public Role findById(Integer id);
+	
 }

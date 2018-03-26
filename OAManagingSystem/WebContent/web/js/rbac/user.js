@@ -228,28 +228,25 @@ $(document).on('click', '.page-href', function (e) {
 function listStaff(staffs) {
 	var userBody = $('#user-nav').find("tbody");
 	userBody.empty();
-	var $titleName, $job, $sex, $phone, $salary, $oper, $tr = new Array();
-	$(staffs).each(function (index, value2) {
-		var $tr1 = $("<tr></tr>");
-		$(value2).each(function (index, value) {
-			$titleName = $("<td></td>").text(value.titleName);
-			$job = $("<td></td>").text(value.job);
-			if(value.sex == 1)
-				$sex = $("<td></td>").text("男");
-			else 
-				$sex = $("<td></td>").text("女");
-			if(value.hasUser == 0) {
-				$has_user = $("<td></td>").text("未拥有");
-				$oper = $("<td></td>").html("<span>未注册用户，无操作</span>");
-			}
-			else {
-				$has_user = $("<td></td>").text("拥有");
-				$oper = $("<td></td>").html("<span sid="+ value.id +" class='glyphicon glyphicon-pencil'></span>&nbsp;&nbsp;<span sid="+ value.id +" class='glyphicon glyphicon-remove' ></span>&nbsp;&nbsp;<span sid="+ value.id +" class='glyphicon glyphicon-lock'></span>");
-			}
-			$phone = $("<td></td>").text(value.phone);
-			$salary = $("<td></td>").text(value.salary);
-			
-		})
+	var $titleName, $job, $sex, $phone, $salary, $oper, $tr = new Array(); //多个tr
+	$(staffs).each(function (index, value) {
+		var $tr1 = $("<tr></tr>");  //单个tr
+		$titleName = $("<td></td>").text(value.titleName);
+		$job = $("<td></td>").text(value.job);
+		if(value.sex == 1)
+			$sex = $("<td></td>").text("男");
+		else 
+			$sex = $("<td></td>").text("女");
+		if(value.hasUser == 0) {
+			$has_user = $("<td></td>").text("未拥有");
+			$oper = $("<td></td>").html("<span>未注册用户，无操作</span>");
+		}
+		else {
+			$has_user = $("<td></td>").text("拥有");
+			$oper = $("<td></td>").html("<span sid="+ value.id +" class='glyphicon glyphicon-pencil'></span>&nbsp;&nbsp;<span sid="+ value.id +" class='glyphicon glyphicon-remove' ></span>&nbsp;&nbsp;<span sid="+ value.id +" class='glyphicon glyphicon-lock'></span>");
+		}
+		$phone = $("<td></td>").text(value.phone);
+		$salary = $("<td></td>").text(value.salary);
 		$tr1.append([$titleName, $sex, $job, $phone, $salary, $has_user , $oper]);
 		$tr.push($tr1);
 	})

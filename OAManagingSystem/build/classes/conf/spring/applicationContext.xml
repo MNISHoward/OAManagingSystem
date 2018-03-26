@@ -43,8 +43,21 @@
         </property>
         <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
         <property name="realm" ref="userRealm"/>
-        <!--<property name="rememberMeManager.cookie.maxAge" value="10" />  -->
+        <property name="rememberMeManager" ref="rememberMeManager"/>  
     </bean>
+
+		<!-- rememberMe管理器 -->  
+	<bean id="rememberMeManager"   
+	class="org.apache.shiro.web.mgt.CookieRememberMeManager">  
+	    <property name="cipherKey" value="  
+	#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>  
+	     <property name="cookie" ref="rememberMeCookie"/>  
+	</bean>
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
+	    <constructor-arg value="rememberMe"/>  
+	    <property name="httpOnly" value="true"/>  
+	    <property name="maxAge" value="2592000"/><!-- 30天 -->  
+	</bean>  
 
     <!-- Let's use some enterprise caching support for better performance.  You can replace this with any enterprise
          caching framework implementation that you like (Terracotta+Ehcache, Coherence, GigaSpaces, etc -->

@@ -51,3 +51,94 @@
     top: -20px;
     left: -15px;
 }
+
+#notificationModal .page-header {
+	margin-top: 0px;
+}
+
+#notificationModal .page-header h3 {
+	margin: 0px;
+}
+
+#announcement .page-body {
+	height: 50px;
+}
+
+#announcement .anno-time {
+	float:right;
+	position: relative;
+	top: 8px;
+}
+
+#notification .page-body .list-group  {
+	margin: 0px;
+}
+
+#notification .page-body .list-group .list-group-item{
+	border:none;
+	padding: 0px 5px;
+	margin: 0px;
+}
+
+#notification .page-body .list-group .list-group-item.hasSee{
+	font-weight: bold;
+	font-style: italic;
+}
+
+#notification .page-body .list-group .list-group-item .noti-title{
+	max-width: 70%;
+	display: inline-block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	line-height: 20px;
+	letter-spacing: .2em;
+}
+
+#notification .page-body .list-group .list-group-item .btn  {
+	padding: 0px 5px;
+	float: right;
+	font-style: normal;
+}
+
+#notification .noti-new {
+	position: relative;
+	top: -8px;
+	font-size: .5em;
+	color : red;
+	font-style: italic;
+}
+
+#notification .page-footer nav {
+	float: right;
+}
+
+#notification .page-footer nav .pager {
+	margin:0px;
+}
+
+#notification .page-footer {
+	display: none;
+}
+#top-page-previous {
+	display: none;
+}
+#notification-content .glyphicon-chevron-left {
+	cursor: pointer;
+}
+
+#deleteNoti {
+	float: right;
+	padding: 0px 5px;
+	position: relative;
+	top: -20px;
+	
+}
+
+.disabled {
+	pointer-events:none; 
+	filter:alpha(opacity=50);  
+      -moz-opacity:0.5;  
+      -khtml-opacity: 0.5;  
+      opacity: 0.5;  
+}

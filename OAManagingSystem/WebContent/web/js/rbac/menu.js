@@ -1,14 +1,15 @@
 $(function () {
-	init();
+	init3();
 })
 
 /**
  * 初始化
  * @returns
  */
-function init() {
+function init3() {
 	$('input[name=resource]').eq(0).prop('checked', true);
 	$('[data-toggle="tooltip"]').tooltip();
+	$('#menu-nav').height($(window).height()-150);
 }
 
 /**
@@ -44,6 +45,7 @@ $('#saveMenuBtn').click(function (e) {
 						$(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
 						dialog.successNo(data.param.message);
 						newMenuWithJson(data.param.menu);
+						$('#menuForm').get(0).reset();
 					}else {
 						dialog.error(data.rtnMessage);
 					}
@@ -73,7 +75,7 @@ function newMenuWithJson(data, $tr, $a) {
 		$('<td></td>').text(url),
 		$('<td></td>').html('<span mid=\''+id+'\' class=\'glyphicon glyphicon-pencil\'></span> <span mid=\''+id+'\' class=\'glyphicon glyphicon-remove\'></span>')
 	];
-	var $a1 = $('<a href="'+ url +'"class="list-group-item leftnav-menu-a" ></a>').html("<span class='icon glyphicon '"+ iconClass +" ></span><span class='icon-text'>"+titleName+"</span>");
+	var $a1 = $('<a href="'+ url +'"class="list-group-item leftnav-menu-a" ></a>').html("<span class='icon glyphicon "+ iconClass +"' ></span><span class='icon-text'>"+titleName+"</span>");
 	if($tr === undefined && $a === undefined){
 		$tbody.append($('<tr></tr>').append($td));
 		//判断添加资源是不是当前资源

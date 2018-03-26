@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import ch.howard.frame.dao.UserDAO;
 import ch.howard.frame.exception.AppException;
 import ch.howard.frame.model.User;
+import ch.howard.frame.shiro.service.FilterChainDefinitionsService;
 import ch.howard.frame.util.EhcacheUtil;
 import ch.howard.rbac.dao.RoleDAO;
 import ch.howard.rbac.dao.StaffDAO;
@@ -41,6 +42,9 @@ public class UserService {
 	
 	@Autowired
 	private StaffDAO staffDao;
+	
+	@Autowired
+	private FilterChainDefinitionsService filterChainService;
 	
 	
 	/**
@@ -94,6 +98,7 @@ public class UserService {
 	 * @param user
 	 * @param newPassword
 	 */
+	@Transactional
 	private void updatePass(User user, String newPassword) {
 		ByteSource salt = ByteSource.Util.bytes(user.getUsername());
 		SimpleHash newResult = new SimpleHash("MD5", newPassword, salt, 10);
@@ -126,6 +131,9 @@ public class UserService {
 		User user = userDao.findByStaffId(Integer.valueOf(sid));
 		user.setRoles(roles);
 		userDao.save(user);
+		
+		
+		filterChainService.reloadFilterChains();
 		outMap.put("message", "更新成功");
 		return outMap;
 	}
@@ -137,15 +145,20 @@ public class UserService {
 	 * @param inMap
 	 * @return
 	 */
-	
+	@Transactional
 	public Map<String, Object> deleteUserByStaff(Map<String, Object> inMap) {
 		String sid = (String) inMap.get("sid");
 		User user = userDao.findByStaffId(Integer.valueOf(sid));
 		Staff staff = staffDao.findById(Integer.valueOf(sid));
 		staff.setHasUser(0);
 		staffDao.save(staff);
-		userDao.delete(user);
-		outMap.put("message", "删除成功");
+		if(user != null) {
+			userDao.delete(user);
+			outMap.put("message", "删除成功");
+		}else {
+			outMap.put("message", "该员工还没有注册用户");
+		}
+		filterChainService.reloadFilterChains();
 		return outMap;
 	}
 	
@@ -156,6 +169,7 @@ public class UserService {
 	 * @param inMap
 	 * @return
 	 */
+	@Transactional
 	public Map<String, Object> lockUserByStaff (Map<String, Object> inMap) {
 		String sid = (String) inMap.get("sid");
 		User user = userDao.findByStaffId(Integer.valueOf(sid));
@@ -184,5 +198,38 @@ public class UserService {
 			log.info("从缓存Ehcache中获取" + element.getObjectKey());
 		}
 		return users;
+	}
+	
+	/**
+	 * 通过id和name来查询User
+	 * @param inMap
+	 * @return
+	 */
+	public Map<String, Object> findStaffwithIdAndName(Map<String, Object> inMap) {
+		String param = (String) inMap.get("param");
+		Integer id;
+		String name;
+		try {
+			id = Integer.valueOf(param);
+			name = "unknown";
+		}catch (NumberFormatException e) {
+			id = null;
+			name = param;
+		}
+		
+		outMap.put("users", userDao.findByIdOrNameContaining(id, name));
+		return outMap;
+	}
+	
+	/**
+	 * 通过id和name来查询User
+	 * @param inMap
+	 * @return
+	 */
+	public Map<String, Object> findStaffwithNameAndEmail(Map<String, Object> inMap) {
+		String param = (String) inMap.get("param");
+		
+		outMap.put("users", userDao.findByNameOrEmailContaining(param));
+		return outMap;
 	}
 }

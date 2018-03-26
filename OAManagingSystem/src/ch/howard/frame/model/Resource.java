@@ -22,6 +22,10 @@ public class Resource {
 	private String name;
 	private String titleName;
 	private String url;
+	/**
+	 * 0正常
+	 * 1非正常
+	 */
 	private Integer state;
 	private List<Menu> menus = new ArrayList<Menu>();
 	

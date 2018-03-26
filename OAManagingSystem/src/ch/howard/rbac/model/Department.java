@@ -79,6 +79,6 @@ public class Department {
 	public void setStaffs(List<Staff> staffs) {
 		this.staffs = staffs;
 	}
-	
+
 	
 }

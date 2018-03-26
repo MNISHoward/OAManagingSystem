@@ -39,12 +39,12 @@ public class LogAop {
 			            + Arrays.asList(args));
 	}
 	
-//	@After(value = "myPoint()")
-//    public void logEnd(JoinPoint joint) {
-//		Object target = joint.getTarget();
-//		String className = target.getClass().getName();
-//		className = className.substring(className.lastIndexOf('.') + 1);
-//        String name = joint.getSignature().getName();
-//        log.info("执行(" + className + "的" + name + ")结束");
-//    }
+	@After(value = "myPoint()")
+    public void logEnd(JoinPoint joint) {
+		Object target = joint.getTarget();
+		String className = target.getClass().getName();
+		className = className.substring(className.lastIndexOf('.') + 1);
+        String name = joint.getSignature().getName();
+        log.info("执行(" + className + "的" + name + ")结束");
+    }
 }

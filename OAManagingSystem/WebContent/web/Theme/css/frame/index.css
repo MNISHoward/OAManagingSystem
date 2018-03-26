@@ -11,3 +11,47 @@
 	margin: 0px 0 10px 0;
     border-bottom: 1px solid #eee;
 }
+
+#right-main .list-group .list-group-item{
+	border:none;
+}
+
+#right-main .event-title {
+	width: 60%;
+	display: inline-block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+#right-main .event-date {
+	display: inline-block;
+	float: right;
+}
+
+#right-main .event-title-header {
+	font-size: .75em;
+	font-weight: bold;
+}
+
+#right-main .event-addDate {
+	position: relative;
+	top: -5px;
+	font-size: .5em;
+}
+
+#right-main .event-date-header {
+	position: relative;
+	top: -2px;
+	font-size: .5em;
+	font-weight: bold;
+}
+
+#index-add-events {
+	margin:40% 0 0 20%;
+}
+
+#right-main .indexAddressList .page-footer ul{
+	margin: 0;
+	float: right;
+}

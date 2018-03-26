@@ -1,10 +1,11 @@
 package ch.howard.rbac.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import ch.howard.rbac.model.Department;
@@ -21,6 +22,8 @@ public interface StaffDAO extends PagingAndSortingRepository<Staff, Integer> {
 	public void updateByIdSetEmailAndPhoneAndAddress(String email, String phone, String address, Integer id);
 	
 	public Page<Staff> findByDepartment(Pageable pageable, Department dept);
+	
+	public List<Staff> findByIdOrNameContaining(Integer id ,String name);
 	
 	
 }

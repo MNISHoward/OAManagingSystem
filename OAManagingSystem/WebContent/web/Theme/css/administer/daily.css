@@ -1,0 +1,56 @@
+#daily-nav .list-group-item {
+	border: none;
+}
+
+#daily-nav .list-group-item-heading {
+    vertical-align: top;
+}
+
+#daily-nav .list-group-item-heading.hasSee {
+	font-style: italic;    
+}
+
+#daily-nav .heading-title {
+	max-width: 40%;
+	display: inline-block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 1.2em;
+}
+
+#daily-nav .heading-updateTime {
+	float: right;
+}
+
+#daily-nav .heading-author {
+	display:inline-block;
+	margin-left: 10%;
+	font-size: .9em;
+	position: relative;
+	top: -8px;
+}
+
+#daily-nav .list-group-item-text {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+#daily-nav .nav-pagination {
+	display: none;
+}
+
+#daily-nav .nav-pagination ul {
+	display: block;
+	margin-bottom : 0px;
+}
+
+#daily-content-title {
+	display: inline-block;
+}
+
+#daily-content-back {
+	float:right;
+	margin: 17px 0 30px 0;
+}

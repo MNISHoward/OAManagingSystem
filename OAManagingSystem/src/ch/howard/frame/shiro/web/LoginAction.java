@@ -14,6 +14,10 @@ import com.opensymphony.xwork2.ActionSupport;
 public class LoginAction extends ActionSupport {
 	private static final transient Logger log = LoggerFactory.getLogger(LoginAction.class);
 
+	public Integer getRid() {
+		return 1;
+	}
+
 	@Override
 	public String execute() throws Exception {
 		HttpSession session = ServletActionContext.getRequest().getSession();
@@ -21,5 +25,7 @@ public class LoginAction extends ActionSupport {
 			return "index";
 		return super.execute();
 	}
+	
+	
 	
 }

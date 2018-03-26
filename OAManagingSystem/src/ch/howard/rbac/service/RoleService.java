@@ -19,6 +19,7 @@ import ch.howard.frame.dao.MenuDAO;
 import ch.howard.frame.dao.UserDAO;
 import ch.howard.frame.model.Menu;
 import ch.howard.frame.model.User;
+import ch.howard.frame.shiro.service.FilterChainDefinitionsService;
 import ch.howard.frame.util.EhcacheUtil;
 import ch.howard.rbac.dao.RoleDAO;
 import ch.howard.rbac.model.Role;
@@ -36,6 +37,9 @@ public class RoleService {
 	
 	@Autowired
 	private MenuDAO menuDao;
+	
+	@Autowired
+	private FilterChainDefinitionsService filterChainService;
 	
 	/**
 	 * 更改缓存用的常量
@@ -290,6 +294,9 @@ public class RoleService {
 				if(index != -1)
 				roles1.remove(index);
 			}
+			
+			filterChainService.reloadFilterChains();
+			
 			cache.put(new Element("roles", roles));
 			log.info("存储在缓存Ehcache中:" + roles);
 		}

@@ -1,0 +1,65 @@
+#company-nav>div{
+	overflow: hidden;
+}
+
+#company-nav .company-intro>div{
+	font-size: 1.2em;
+}
+
+#company-nav .company-detail .list-group {
+	
+}
+
+#company-nav .company-detail .list-group .list-group-item {
+	color: #5e6267;
+	border: none;
+}
+
+#company-nav .company-detail .list-group .list-group-item .detail-other {
+	padding: 2% 0;
+	text-indent: 20px;
+}
+
+#company-nav .company-detail .domain {
+	padding-top: 20px;
+	padding-left: 20px;
+	margin: 0;
+}
+
+#company-nav .company-detail .domain .list-group-item{
+	display: inline-block;
+	padding: 0;
+	transition:color 0.3s linear;
+}
+
+#company-nav .domain .list-group-item:hover,
+#company-nav .domain .list-group-item:active,
+#company-nav .domain .list-group-item:focus {
+	background: none;
+	color:#333;
+}
+
+#company-nav .glyphicon-pencil {
+	position: absolute;
+	right: 20px;
+	top: 91px;
+	font-size: 2em;
+	cursor: pointer;
+	z-index: 10;
+}
+
+#company-nav .glyphicon-pencil:active {
+	top: 95px;
+}
+
+.intro-modal-lg .form-group {
+	margin-bottom: 5px;
+}
+
+.intro-modal-lg .button-group {
+	text-align: center;
+}
+
+#updateCompany {
+	width: 200px;
+}

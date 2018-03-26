@@ -29,6 +29,7 @@
 	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
     <package name="ajaxPackage" namespace="/ajax"  extends="json-default" >
 	    <interceptors>
 	    	<interceptor-stack name="ajaxStack">
@@ -44,19 +45,32 @@
     	</action>
     </package>
     
+    <package name="filePackage" namespace="/file"  extends="struts-default" >
+    	<action name="download" class="downloadAction">
+            <result type="stream">
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename=${fileName}</param>
+            </result>
+        </action>
+    </package>
+    
     <package name="resourcePackage" namespace="/" extends="struts-default" >
     	<global-results>
     		<result name="login" type="redirectAction" >login</result>
    		</global-results>
     	<action name="index" class="indexAction" >
     		<result>web/jsp/frame/index.jsp</result>
-    		<result name="calendar" >web/jsp/frame/calendar.jsp</result>
-    		<allowed-methods>calendarExecute</allowed-methods>
+    		<result name="calendar" >web/jsp/index/calendar.jsp</result>
+    		<result name="notification" >web/jsp/index/notification.jsp</result>
+    		<result name="notiHandle" type="redirect" >index.do?rid=${rid}</result>
+    		<result name="myDaily" >web/jsp/index/mydaily.jsp</result>
+    		<result name="addressList" >web/jsp/index/addressList.jsp</result>
+    		<allowed-methods>calendarExecute,notificationExecute,notificationHander,myDailyExecute,myDailyHander,addressListExecute</allowed-methods>
     	</action>
     	
     	<action name="login" class="loginAction" >
     		<result>web/jsp/frame/login.jsp</result>
-    		<result name="index" type="redirectAction" >index</result>
+    		<result name="index" type="redirectAction" >index?rid=${rid}</result>
     	</action>
     	
     	<action name="rbac" class="rbacAction" >
@@ -66,6 +80,40 @@
     		<result name="menu" >web/jsp/rbac/menu.jsp</result>
     		<result name="resource" >web/jsp/rbac/resource.jsp</result>
     		<allowed-methods>userExecute,roleExecute,menuExecute,resourceExecute</allowed-methods>
+    	</action>
+    	
+    	<action name="administer" class="administerAction" >
+    		<result>web/jsp/administer/administer.jsp</result>
+    		<result name="staff" >web/jsp/administer/staff.jsp</result>
+    		<result name="recruit" >web/jsp/administer/recruit.jsp</result>
+    		<result name="fire" >web/jsp/administer/fire.jsp</result>
+    		<result name="daily" >web/jsp/administer/daily.jsp</result>
+    		<allowed-methods>staffExecute,recruitExecute,dailyExecute,fireExecute</allowed-methods>
+    	</action>
+    	
+    	<action name="asset" class="assetAction" >
+    		<result>web/jsp/asset/asset.jsp</result>
+    		<result name="new" >web/jsp/asset/new.jsp</result>
+    		<result name="assign" >web/jsp/asset/assign.jsp</result>
+    		<result name="delete" >web/jsp/asset/delete.jsp</result>
+    		<allowed-methods>newExecute,assignExecute,deleteExecute</allowed-methods>
+    	</action>
+    	
+    	<action name="intro" class="introductionAction" >
+    		<result>web/jsp/intro/intro.jsp</result>
+    		<result name="company" type="redirect" >intro.do?rid=${rid}</result>
+    		<allowed-methods>companyHander</allowed-methods>
+    	</action>
+    	
+    	
+    	<action name="email" class="emailAction" >
+    		<result>web/jsp/email/email.jsp</result>
+    		<result name="write" >web/jsp/email/write.jsp</result>
+    		<result name="inbox" >web/jsp/email/inbox.jsp</result>
+    		<result name="outbox" >web/jsp/email/outbox.jsp</result>
+    		<result name="draftbox" >web/jsp/email/draftbox.jsp</result>
+    		<result name="sendEmail" type="redirect" >email.do?rid=${rid}</result>
+    		<allowed-methods>writeExecute,outboxExecute,draftboxExecute,sendEmailHandle,inboxExecute</allowed-methods>
     	</action>
     </package>
 

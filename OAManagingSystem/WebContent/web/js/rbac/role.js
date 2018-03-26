@@ -1,3 +1,11 @@
+
+$(function () {
+	init3();
+})
+
+function init3() {
+	$('#role-nav').height($(window).height()-150);
+}
 /**
  * 新增角色按钮事件
  * @param e
@@ -50,7 +58,7 @@ $('#saveRoleBtn').click(function (e) {
  * @param data
  * @returns
  */
-function newRoleWithJson(data) {
+function newRoleWithJson(data, $tr) {
 	var $tbody = $('#role-nav').find('tbody');
 	var titleName = data.titleName;
 	var id = data.id;
@@ -59,7 +67,12 @@ function newRoleWithJson(data) {
 		$('<td></td>').text('正常'),
 		$('<td></td>').html('<span rid=\''+id+'\' class=\'glyphicon glyphicon-pencil\'></span> <span rid=\''+id+'\' class=\'glyphicon glyphicon-remove\'></span>')
 	];
-	$tbody.append($('<tr></tr>').append($td));
+	if($tr === undefined){
+		$tbody.append($('<tr></tr>').append($td));
+	}else {
+		$tr.after($('<tr></tr>').append($td));
+		$tr.empty().remove();
+	}
 }
 
 
@@ -151,8 +164,8 @@ $('#updateRoleBtn').click(function (e) {
 					$(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
 					dialog.successNo(data.param.message);
 					//新增的用户信息添加到前端
-					$('span[rid='+ data.param.role.id + ']').parents('tr').empty().remove();
-					newRoleWithJson(data.param.role);
+					$tr = $('span[rid='+ data.param.role.id + ']').parents('tr');
+					newRoleWithJson(data.param.role, $tr);
 				}else {
 					dialog.error(data.rtnMessage);
 				}

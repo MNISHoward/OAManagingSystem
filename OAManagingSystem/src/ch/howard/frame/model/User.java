@@ -28,6 +28,10 @@ public class User {
 	private String username;
 	private String password;
 	private Date loginTime;
+	/**
+	 * 0正常
+	 * 1锁定
+	 */
 	private Integer state;
 	private Staff staff;
 	private Set<Role> roles = new HashSet<Role>(); 
@@ -79,6 +83,24 @@ public class User {
 	public User(Integer id) {
 		super();
 		this.id = id;
+	}
+	
+	public User(Integer id, Integer staffId,String name) {
+		super();
+		this.id = id;
+		this.staff = new Staff();
+		this.staff.setId(staffId);
+		this.staff.setTitleName(name);
+	}
+	
+	
+
+	public User(Integer id, String titleName, String email) {
+		super();
+		this.id = id;
+		this.staff = new Staff();
+		staff.setTitleName(titleName);
+		staff.setEmail(email);
 	}
 
 	@Column(name="state", columnDefinition="int default 0")

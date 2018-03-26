@@ -1,5 +1,5 @@
 <%@page pageEncoding="UTF-8" %>
-<%@include file="/web/Common/jsp/head.jsp" %>
+<%@include file="/web/Common/jsp/resourcehead.jsp" %>
 <body>
   <nav class="navbar navbar-default">
     <div class="container-fluid">

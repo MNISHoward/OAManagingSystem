@@ -1,8 +1,8 @@
 package ch.howard.rbac.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -19,13 +19,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import ch.howard.frame.shiro.service.UserLoginService;
+import ch.howard.frame.service.UserService;
 import ch.howard.frame.util.EhcacheUtil;
-import ch.howard.frame.web.IndexAction;
-import ch.howard.rbac.dao.DeptDAO;
+import ch.howard.frame.util.Util;
 import ch.howard.rbac.dao.StaffDAO;
 import ch.howard.rbac.model.Department;
-import ch.howard.rbac.model.Role;
 import ch.howard.rbac.model.Staff;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
@@ -39,6 +37,21 @@ public class StaffService {
 	
 	@Autowired
 	private StaffDAO staffDao;
+	
+	@Autowired
+	private UserService userService;
+	
+	/**
+	 * 根据sid 查找员工
+	 * @param inMap
+	 * @return
+	 */
+	public Map<String, Object> findStaffById(Map<String, Object> inMap) {
+		String sid = (String) inMap.get("sid");
+		Staff staff = staffDao.findOne(Integer.valueOf(sid));
+		outMap.put("staff", staff);
+		return outMap;
+	}
 	
 	/**
 	 * 根据staffid来更新员工邮箱，手机，地址信息
@@ -89,7 +102,8 @@ public class StaffService {
 		log.info("对staff进行分页，根据id排序操作");
 		Cache cache = EhcacheUtil.getCache("resourceCache");
 		Element element = cache.get("staffs" + page + did);
-		if(element == null) {
+		Element element2 = cache.get("staffsUpdate");
+		if(element == null || (element2 != null && (Boolean)element2.getObjectValue() == true)) {
 			Department dept = new Department();
 			dept.setId(Integer.valueOf(did));
 			pageStaff = staffDao.findByDepartment(pageable, dept);
@@ -104,4 +118,111 @@ public class StaffService {
 		return outMap;
 	}
 	
+	/**
+	 * 通过id来更新staff
+	 * @param inMap
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public Map<String, Object> updateStaffById(Map<String, Object> inMap) throws Exception {
+		//转换时间格式
+		SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = time.parse((String)inMap.get("birthday"));
+		inMap.put("birthday", date);
+		
+		//部门号重新赋值
+		String did = (String)inMap.get("departmentId");
+		Department dept = new Department();
+		dept.setId(Integer.valueOf(did));
+		Staff staff = (Staff) Util.mapToObject(inMap, Staff.class);
+		staff.setDepartment(dept);
+		staffDao.save(staff);
+		
+		
+		motifyCache();
+		outMap.put("message", "更新成功");
+		return outMap;
+	}
+	
+	/**
+	 * 新增一个新的staff, 与更新不同就是 更新 需要给用户一个通知
+	 * @param inMap
+	 * @return
+	 * @throws Exception 
+	 */
+	
+	@Transactional
+	public Map<String, Object> insertNewStaff(Map<String, Object> inMap) throws Exception {
+		SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = time.parse((String)inMap.get("birthday"));
+		inMap.put("birthday", date);
+		
+		//部门号重新赋值
+		String did = (String)inMap.get("departmentId");
+		Department dept = new Department();
+		dept.setId(Integer.valueOf(did));
+		Staff staff = (Staff) Util.mapToObject(inMap, Staff.class);
+		staff.setDepartment(dept);
+		staffDao.save(staff);
+		
+		motifyCache();
+		outMap.put("message", "新增成功");
+		return outMap;
+	}
+	/**
+	 * 通过id和name来查询staff
+	 * @param inMap
+	 * @return
+	 */
+	public Map<String, Object> findStaffwithIdAndName(Map<String, Object> inMap) {
+		String param = (String) inMap.get("param");
+		Integer id;
+		String name;
+		try {
+			id = Integer.valueOf(param);
+			name = "unknown";
+		}catch (NumberFormatException e) {
+			id = null;
+			name = param;
+		}
+		
+		outMap.put("staffs", staffDao.findByIdOrNameContaining(id, name));
+		return outMap;
+	}
+	
+	/**
+	 * 解雇员工
+	 * @param inMap
+	 * @return
+	 */
+	@Transactional
+	public Map<String, Object> deleteStaffById(Map<String, Object> inMap) {
+		String id = (String) inMap.get("id");
+		
+		
+		//删除员工对应的用户
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sid", id);
+		userService.deleteUserByStaff(map);
+		
+		staffDao.delete(Integer.valueOf(id));
+		outMap.put("message", "解雇成功");
+		motifyCache();
+		return outMap;
+	}
+	
+	/**
+	 * 更改缓存标志
+	 */
+	public void motifyCache() {
+		//更新缓存
+		Cache cache = EhcacheUtil.getCache("resourceCache");
+		log.info("staff缓存将永远失效");
+		cache.put(new Element("staffsUpdate", Boolean.TRUE));
+		log.info("department缓存需要更新");
+		cache.put(new Element("deptUpdate", Boolean.TRUE));
+		
+	}
+	 
 }

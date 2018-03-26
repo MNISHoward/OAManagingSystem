@@ -1,0 +1,99 @@
+.email-logo {
+	position: absolute;
+	top: 10px;
+	left: 0px;
+}
+
+.inbox-h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#inbox-body .inbox-detail{
+	border: none;
+	font-size: 1em;
+	padding:5px;
+	vertical-align: middle;
+}
+#inbox-body .inbox-title {
+	margin-bottom: 10px;
+}
+
+#inbox-body .inbox-title:hover,
+#inbox-body .inbox-title:active,
+#inbox-body .inbox-title:focus {
+	background: transparent;
+}
+
+#inbox-body .inbox-detail.new {
+	font-weight: bold;
+}
+
+#inbox-body .inbox-detail .list-group-item-heading {
+	font-size: 1em;
+	margin: 0px;
+	font-weight: inherit;
+}
+
+#inbox-body .inbox-detail .list-group-item-heading .heading-sendPerson {
+	float:left;
+	margin-right: 10%;
+}
+
+#inbox-body .inbox-detail .list-group-item-heading .heading-title {
+	max-width: 20%;
+	float:left;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+#inbox-body .inbox-detail .list-group-item-heading .heading-summary {
+	width: 45%;
+	float:left;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	color: #a0a0a0;
+}
+
+#inbox-body .inbox-detail .list-group-item-heading .heading-sendTime {
+	float:right;
+}
+
+#email-nav .nav-pagination {
+	display: none;
+}
+
+#email-content-detail {
+	display: none;
+}
+
+#email-content {
+	overflow: auto;
+}
+
+#email-content-person {
+	display: inline-block;
+	font-size: 1.2em;
+	font-weight: normal;
+}
+
+
+#email-content-person .content-person-email {
+	color: #7f7f7f
+}
+
+#email-content-person .content-person-time {
+	display: block;
+	
+}
+#email-content-back,#email-content-delete,#email-content-edit {
+	float:right;
+	margin: 17px 20px 30px 0;
+}
+
+#email-content-title {
+	font-size: 1.2em;
+	font-weight: bold;
+}

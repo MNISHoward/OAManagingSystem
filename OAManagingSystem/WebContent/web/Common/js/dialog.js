@@ -29,8 +29,9 @@ var dialog = {
 				title : '确认提示',
 				btn : ['确认', '取消'],
 				content : message,
-				yes : function () {
+				yes : function (index, layero) {
 					window.location = url;
+					layer.close(index);
 				},
 				btn2 : function (index, layero) {
 					layer.close(index);
@@ -42,7 +43,10 @@ var dialog = {
 				title : '确认提示',
 				btn : ['确认', '取消'],
 				content : message,
-				yes : successfunc,
+				yes : function (index, layero) {
+					successfunc();
+					layer.close(index);
+				},
 				btn2 : function (index, layero) {
 					layer.close(index);
 				}

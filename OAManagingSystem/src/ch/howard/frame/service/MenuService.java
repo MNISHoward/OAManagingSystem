@@ -87,6 +87,12 @@ public class MenuService {
 		url = url.substring(0, url.indexOf(".do")) + "!"+ method +".do"; //根据选择的资源对url进行拼接
 		Menu m = new Menu(name, titleName, url, 0, resource);
 		m.setIconClass(iconClass);
+		if(!resourceId.equals("1")) { 
+			//默认拥有admin
+			Role r = new Role();
+			r.setId(1);
+			m.getRoles().add(r);
+		}
 		menuDao.save(m);
 		
 		//重新更新缓存
@@ -166,7 +172,12 @@ public class MenuService {
 		outMap.put("message", "修改成功");
 		return outMap;
 	}
-	
+	/**
+	 * 改变缓存
+	 * @param m
+	 * @param resourceId
+	 * @param type
+	 */
 	public void modifyCache(Menu m, String resourceId, String type) {
 		Iterable<Menu> menus;
 		Cache cache = EhcacheUtil.getCache("resourceCache");

@@ -1,3 +1,46 @@
+#dept-nav {
+	margin-top: 20px;
+	padding: 0 40px;
+}
+
+#dept-nav .list-group {
+	margin: 0;
+}
+
+#dept-nav .list-group .list-group-item{
+	padding:0;
+	border: none;
+}
+
+#dept-nav .list-group .list-group-item a{
+	color: #000;
+	font-weight: bold;
+	text-decoration: none;
+	display: inline-block;
+	width: 30%;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 10px;
+	border-radius: 5px;
+}
+
+#dept-nav .list-group .list-group-item a:hover,
+#dept-nav .list-group .list-group-item a:focus,
+#dept-nav .list-group .list-group-item a:visited {
+	cursor: pointer;
+	background: #efefef;
+}
+
+#dept-nav .list-group .list-group-item a.active {
+	color: #fff;
+	background: rgba(51, 122, 183, .75);
+}
+
+#dept-nav .list-group .list-group-item a span {
+	display: inline-block;
+	margin-right: 5px;
+}
+
 #user-nav th,
 #user-nav td{
 	text-align: center;
