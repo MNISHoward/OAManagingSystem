@@ -55,6 +55,7 @@ public class CompanyDetatilService {
 		 try {
 			ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(f));
 			oos.writeObject(companyDetail);
+			oos.writeObject(null);
 			oos.close();
 		} catch (FileNotFoundException e) {
 			log.error("文件不存在");
@@ -77,6 +78,10 @@ public class CompanyDetatilService {
 		try {
 			ObjectInputStream ois=new ObjectInputStream(new FileInputStream(f));
 			companyDetail = (CompanyDetail) ois.readObject();
+			ois.close();
+			if(companyDetail == null) {
+				companyDetail = new CompanyDetail(); //防止Struts2 POJO传值失败
+			}
 		} catch (FileNotFoundException e) {
 			log.error("文件不存在");
 			e.printStackTrace();

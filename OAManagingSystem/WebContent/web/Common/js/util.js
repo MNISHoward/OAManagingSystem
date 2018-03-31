@@ -46,6 +46,11 @@ var Util = {
     	    a = "" + a;
     	    return a.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&apos;/g, "'");
     	},
+    	validator : function (form) {
+    		var bootstrapValidator = $(form).data('bootstrapValidator');
+            bootstrapValidator.validate();
+            return bootstrapValidator.isValid();
+    	}
 }
 
 Date.prototype.format = function (fmt) { //author: meizz 

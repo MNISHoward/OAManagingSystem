@@ -63,7 +63,7 @@ public class UserService {
 		User user = userDao.findById(Integer.valueOf(userId));
 		ByteSource salt = ByteSource.Util.bytes(user.getUsername());
 		SimpleHash oldResult = new SimpleHash("MD5", oldPassword, salt, 10);
-		if(!user.getPassword().equals(oldResult.toString())) {
+		if(!user.getPassword().equals(oldResult.toString())) {//与原密码对比
 			throw new AppException("原密码不一致");
 		}
 		updatePass(user, newPassword);

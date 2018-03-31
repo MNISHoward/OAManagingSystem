@@ -52,10 +52,10 @@
 		  </div>
 		  <div class="form-group">
 		    <label for="repassword" class="control-label">确认密码</label>
-		      <ch:input type="password" class="input-lg" id="repassword" placeholder="密码" />
+		      <ch:input type="password" class="input-lg" id="repassword" placeholder="确认密码" />
 		  </div>
 		   <div class="btn-group" >
-		    <button class="btn btn-warning" type="submit" id="regbtn"  >注册</button>
+		    <button class="btn btn-warning" type="button" id="regbtn"  >注册</button>
 		    &nbsp;&nbsp;
 		    <button class="btn btn-primary" type="reset"  >重置</button>
 		  </div>

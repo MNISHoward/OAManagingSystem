@@ -32,7 +32,9 @@
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
     <package name="ajaxPackage" namespace="/ajax"  extends="json-default" >
 	    <interceptors>
+	    	<interceptor name="sessionFilter" class="ch.howard.frame.interceptor.SessionInterceptor"></interceptor>
 	    	<interceptor-stack name="ajaxStack">
+	    		<interceptor-ref name="sessionFilter"></interceptor-ref>
 	    		<interceptor-ref name="defaultStack"></interceptor-ref>
 	    		<interceptor-ref name="json"></interceptor-ref>
 	    	</interceptor-stack>
@@ -55,6 +57,15 @@
     </package>
     
     <package name="resourcePackage" namespace="/" extends="struts-default" >
+    	<interceptors>
+    		<interceptor name="sessionFilter" class="ch.howard.frame.interceptor.SessionInterceptor"></interceptor>
+    		<interceptor-stack name="sessionStack">
+    			<interceptor-ref name="sessionFilter"></interceptor-ref>
+    			<interceptor-ref name="defaultStack"></interceptor-ref>
+    		</interceptor-stack>
+    		
+    	</interceptors>
+    	<default-interceptor-ref name="sessionStack"></default-interceptor-ref>
     	<global-results>
     		<result name="login" type="redirectAction" >login</result>
    		</global-results>

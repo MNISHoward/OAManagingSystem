@@ -24,17 +24,6 @@
     <dispatcher>ERROR</dispatcher>
   </filter-mapping>
   
-  <!-- session失效过滤器 -->
-  <filter>
-  	<filter-name>sessionFilter</filter-name>
-  	<filter-class>ch.howard.frame.filter.SessionFilter</filter-class>
-  </filter>
-  <filter-mapping>
-	  <filter-name>sessionFilter</filter-name>
-	  <url-pattern>*.do</url-pattern>
-      <url-pattern>*.jsp</url-pattern>
-  </filter-mapping>
-  
    <!-- hibernate过滤器 Session交给spring来管理 -->
   <filter>
   	<filter-name>hibernateFilter</filter-name>

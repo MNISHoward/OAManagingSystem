@@ -89,11 +89,14 @@ public class MenuService {
 		m.setIconClass(iconClass);
 		if(!resourceId.equals("1")) { 
 			//默认拥有admin
-			Role r = new Role();
-			r.setId(1);
+			Role r = roleDao.findById(1);
+			r.addMenu(m);
 			m.getRoles().add(r);
+			menuDao.save(m);
+			roleDao.save(r);
+		}else {
+			menuDao.save(m);
 		}
-		menuDao.save(m);
 		
 		//重新更新缓存
 		modifyCache(m, resourceId, INSERT);

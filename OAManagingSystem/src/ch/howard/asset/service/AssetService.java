@@ -47,7 +47,7 @@ public class AssetService {
 	}
 	
 	/**
-	 * 通过id和name来查询staff
+	 * 通过id和model来查询asset
 	 * @param inMap
 	 * @return
 	 */
@@ -89,7 +89,7 @@ public class AssetService {
 		String assetId = (String) inMap.get("assetId");
 		Asset as = new Asset(Integer.valueOf(assetId));
 		
-		if(distributionRecordDao.RecordCount(Integer.valueOf(assetId)) > 0) {
+		if(distributionRecordDao.RecordCount(Integer.valueOf(assetId)) > 0) {//当分配资产表存在该资产同时还没有归还时，提示错误
 			outMap.put("flag", false);
 			outMap.put("message", "资产还没有归还，禁止删除");
 		}else {

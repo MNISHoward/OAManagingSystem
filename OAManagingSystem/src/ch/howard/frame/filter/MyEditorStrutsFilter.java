@@ -15,6 +15,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import ch.howard.frame.ajax.AjaxOutParam;
 import ch.howard.frame.ajax.RtnCode;
 import ch.howard.frame.util.json.JsonUtil;
+import ch.howard.frame.wrapper.MyRequestWrapper;
  
 /**
  * 为了防止百度编译上传文件的文件被struts2拦截
@@ -28,10 +29,9 @@ public class MyEditorStrutsFilter extends StrutsPrepareAndExecuteFilter{
         HttpServletRequest request = (HttpServletRequest) req;
         String url = request.getRequestURI();
 	        if (url.contains(request.getContextPath()+"/web/Common/ueditor/jsp/")) {
-	            chain.doFilter(req, res);         
+	            chain.doFilter(new MyRequestWrapper(request), res);         
 	        }else{             
-	            super.doFilter(req, res, chain);         
+	            super.doFilter(new MyRequestWrapper(request), res, chain);         
 	        }
-
     }
 }

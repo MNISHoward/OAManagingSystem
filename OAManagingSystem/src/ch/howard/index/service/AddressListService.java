@@ -40,7 +40,7 @@ public class AddressListService {
 	 */
 	@Transactional
 	public Map<String, Object> saveAddressList(Map<String, Object> inMap) throws Exception {
-		AddressList al = (AddressList) Util.mapToObject(inMap, AddressList.class);
+		AddressList al = (AddressList) Util.mapToObject(inMap, AddressList.class);//Map数据结构直接转换成对象
 		if(al.getType() == 0) {
 			User u = (User) SecurityUtils.getSubject().getSession().getAttribute("user");
 			al.setUser(new User(u.getId()));
@@ -113,10 +113,10 @@ public class AddressListService {
 		AddressList addressList = addressListDao.findById(Integer.valueOf(id));
 		addressList.setCompany(company);addressList.setType(Integer.valueOf(type));addressList.setPhone(phone);
 		addressList.setComment(comment);addressList.setAddress(address);
-		if(type.equals("1")) { //公司联系人
+		if(type.equals("1")) { //公司联系人,公司联系人没有性别和不属于其他用户
 			addressList.setName("");addressList.setSex(0);addressList.setUser(null);
 		}else {
-			if(type.equals("2")) { //竞争者
+			if(type.equals("2")) { //竞争者，竞争者是拥有性别，但不属于其他用户
 				addressList.setUser(null); 
 			}else {
 				User u = (User) SecurityUtils.getSubject().getSession().getAttribute("user");

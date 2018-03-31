@@ -13,14 +13,7 @@
 
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
-                <s:iterator value="resources" var="r" >
-                 <s:if test="#r.id == 1" >
-                 	<li><a rid='<s:property value="#r.id" />' href='<s:property value="#r.url" />?rid=<s:property value="#r.id" />'><span class=" glyphicon glyphicon-home"></span></a></li>
-                 </s:if>
-                 <s:elseif test="#r.state == 0" >
-          		 	 <li><a rid='<s:property value="#r.id" />' href='<s:property value="#r.url" />?rid=<s:property value="#r.id" />'><s:property value="titleName" /></a></li>
-               	 </s:elseif>
-                </s:iterator>
+                <ch:resource resources="resources" />
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

@@ -15,12 +15,15 @@
     <title>OA办公自动化系统</title>
 
     <!-- Bootstrap -->
+    <link rel="shortcut icon" href="<%=ctx %>/web/Theme/images/office.ico">
     <link href="<%=ctx %>/web/Theme/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=ctx %>/web/Theme/css/bootstrapValidator.min.css" rel="stylesheet">
     <link href="<%=ctx %>/web/Theme/css/leftnav.css" rel="stylesheet">
     <link href="<%=ctx %>/web/Theme/css/topnav.css" rel="stylesheet">
     <link rel="stylesheet" href="<%=ctx%>/web/Theme/css<%=fileName %>.css">
     <script src="<%=ctx %>/web/Common/js/jquery.min.js" ></script>
     <script src="<%=ctx %>/web/Common/js/bootstrap.min.js"></script> 
+    <script src="<%=ctx %>/web/Common/js/bootstrapValidator.min.js"></script> 
     <script type="text/javascript" src="<%=ctx %>/web/Common/js/util.js" ></script>
     <script type="text/javascript" src="<%=ctx %>/web/Common/js/ajax.js" ></script>
     <script type="text/javascript" src="<%=ctx %>/web/Common/js/script.js" defer ></script>

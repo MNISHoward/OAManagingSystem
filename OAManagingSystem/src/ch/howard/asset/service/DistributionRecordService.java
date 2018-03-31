@@ -37,6 +37,9 @@ public class DistributionRecordService {
 	public Map<String, Object> saveDistributionRecord(Map<String, Object> inMap) {
 		String staffId = (String) inMap.get("staffId");
 		String assetId = (String) inMap.get("assetId");
+		if(distributionRecordDao.RecordCount(Integer.valueOf(assetId)) > 0){
+			outMap.put("message","该资产已经被分配");
+		}else{
 		DistributionRecord dr = new DistributionRecord();
 		dr.setAsset(new Asset(Integer.valueOf(assetId)));
 		dr.setStaff(new Staff(Integer.valueOf(staffId)));
@@ -47,6 +50,7 @@ public class DistributionRecordService {
 		
 		distributionRecordDao.save(dr);
 		outMap.put("message", "分配成功");
+		}
 		return outMap;
 	}
 	

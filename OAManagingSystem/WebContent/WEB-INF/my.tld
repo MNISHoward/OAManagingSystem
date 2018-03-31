@@ -20,4 +20,24 @@
 			<type>java.lang.String</type>
 		</attribute>
 	 </tag>
+	 <tag>
+	 	<name>menu</name>
+		<tag-class>ch.howard.frame.tag.MenuTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>resource</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+		</attribute>
+	 </tag>
+	 <tag>
+	 	<name>resource</name>
+		<tag-class>ch.howard.frame.tag.ResourceTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>resources</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+		</attribute>
+	 </tag>
  </taglib>

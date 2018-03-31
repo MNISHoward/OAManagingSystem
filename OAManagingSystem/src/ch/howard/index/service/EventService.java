@@ -58,12 +58,12 @@ public class EventService {
 		String startDate = (String) inMap.get("startDate");
 		String startTime = (String) inMap.get("startTime");
 		
-		if(allDay.equals("true")) {
+		if(allDay.equals("true")) {//判断是否全天标志
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Event e = new Event(null, content, Boolean.TRUE,sdf.parse(startDate), null);
 			e.setUser(new User(Integer.valueOf(uid)));
 			eventDao.save(e);
-		}else {
+		}else {//不是全天才有结束结束时间
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String date = startDate+ " " +startTime;
 			Event e= new Event(null, content, Boolean.FALSE, sdf.parse(date), sdf.parse(endDate));

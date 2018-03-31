@@ -115,7 +115,7 @@ public class InboxService {
 		Cache cache = EhcacheUtil.getCache("resourceCache");
 		User u = (User) SecurityUtils.getSubject().getSession().getAttribute("user");
 		Element element = cache.get("user" + u.getId());
-		if(element != null && (Boolean)element.getObjectValue()) {
+		if(element != null && (Boolean)element.getObjectValue()) {//利用缓存来通知客户端当前用户的邮箱是否已经改变了
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("page", 0);
 			this.getInboxPage(map);

@@ -125,7 +125,7 @@ public class NotificationService {
 	 */
 	@Transactional
 	public void insertNewNotification(String titleName, String content, Integer uid) {
-		Notification notification = new Notification(null, content, new Date(), 0, titleName);
+		Notification notification = new Notification(null, content, new Date(), 0, "【新增通知】"+titleName);
 		User u = new User(uid);
 		notification.setUser(u);
 		notificationDAO.save(notification);

@@ -41,7 +41,7 @@ public class FilterChainDefinitionsService {
                 Map<String, String> chains = shiroFilterFactoryBean.getFilterChainDefinitionMap();
                 //重新生成过滤链
                 if (!CollectionUtils.isEmpty(chains)) {
-                    chains.forEach((url, definitionChains) -> {
+                    chains.forEach((url, definitionChains) -> {//Java8 lambda表达式
                         manager.createChain(url, definitionChains.trim().replace(" ", ""));
                     });
                 }
