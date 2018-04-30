@@ -26,14 +26,15 @@ function init2() {
 		e.preventDefault();
 		var url = $this.attr('href');
 		if(url !== undefined && (window.asure == undefined || window.asure != false)) {
-			$('#right-main').load(ctx + url, {flag:0}, function(data) {
+			$.get(ctx + url, {flag:0}, function(data) {
 				if(data.indexOf('rtnCode') != -1) {
 					data = JSON.parse(data);
 				}
 				if(data.rtnCode == ajax.rtnCode.NOLOGIN) {
 					dialog.success(data.rtnMessage, window.location.href);
 				}else{
-					$this.removeClass('disabled');
+					$('#right-main').html(data);
+					$('.leftnav-menu-a').removeClass('disabled');
 					window.asure = true;
 				}
 			});
@@ -120,7 +121,9 @@ $('#email-content-edit').click(function (e) {
 		title: $a.find('.heading-title').text().trim(),
 		flag : 1 //判断当前是收件
 	};
-	$('#right-main').load(ctx + $('#left-navbar .leftnav-menu-a[mid=33]').attr('href'), JSON);
+	$.get(ctx + $('#left-navbar .leftnav-menu-a[mid=33]').attr('href'), JSON, function(data) {
+		$('#right-main').html(data);
+	});
 })
 
 

@@ -73,6 +73,96 @@ $(function () {
     	 delete(window.addressLists);
      }
     });
+	 
+	 $('#addressListForm').bootstrapValidator({
+	        message: 'This value is not valid',
+	        feedbackIcons: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	name: {
+	                message: '名字验证失败',
+	                validators: {
+	                    notEmpty: {
+	                        message: '名字不能为空'
+	                    },
+	                }
+	            },
+	        	company: {
+	                message: '公司名称验证失败',
+	                validators: {
+	                    notEmpty: {
+	                        message: '公司名称不能为空'
+	                    },
+	                }
+	            },
+	            phone :  {
+	            	message: '手机号码验证失败',
+	                validators: {
+	                    notEmpty: {
+	                        message: '手机号码不能为空'
+	                    },
+	                    regexp : {
+	                    	regexp:/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/,
+	                    	message : '手机号码格式不正确'
+	                    }
+	                },
+	            },
+	        },
+	        
+	        excluded: [':disabled'] 
+	    }).on('success.form.bv', function(e) {
+	        // 阻止默认事件提交
+	        e.preventDefault();
+	        $('#saveAddressListBtn').prop('disabled', false);
+	    });
+	 
+	 $('#addressListDetailForm').bootstrapValidator({
+	        message: 'This value is not valid',
+	        feedbackIcons: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	name: {
+	                message: '名字验证失败',
+	                validators: {
+	                    notEmpty: {
+	                        message: '名字不能为空'
+	                    },
+	                }
+	            },
+	        	company: {
+	                message: '公司名称验证失败',
+	                validators: {
+	                    notEmpty: {
+	                        message: '公司名称不能为空'
+	                    },
+	                }
+	            },
+	            phone :  {
+	            	message: '手机号码验证失败',
+	                validators: {
+	                    notEmpty: {
+	                        message: '手机号码不能为空'
+	                    },
+	                    regexp : {
+	                    	regexp:/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/,
+	                    	message : '手机号码格式不正确'
+	                    }
+	                },
+	            },
+	        },
+	        
+	        excluded: [':disabled'] 
+	    }).on('success.form.bv', function(e) {
+	        // 阻止默认事件提交
+	        e.preventDefault();
+	        $('#updateAddressListBtn').prop('disabled', false);
+	    });
 })
 
 function init() {
@@ -125,6 +215,12 @@ $('#detailtype').change(function (e) {
  */
 $('#saveAddressListBtn').click(function () {
 	var JSON = Util.formDataToJson(addressListForm);
+	if(JSON.type == 1) {
+		$('#addressListForm').data('bootstrapValidator').updateStatus('name', 'VALID');
+	}else {
+		$('#addressListForm').data('bootstrapValidator').updateStatus('name', 'NOT_VALIDATED');
+	}
+	if(Util.validator(addressListForm)){
 	$model = $('.addressList-modal-lg');
 	var paramIn = {
 			service : 'addressListService',
@@ -144,6 +240,7 @@ $('#saveAddressListBtn').click(function () {
 			}
 		};
 	ajax.query(paramIn);
+	}
 })
 
 
@@ -368,6 +465,12 @@ function modelShowEvent() {
 $('#updateAddressListBtn').click(function (e) {
 	e.preventDefault();
 	var JSON = Util.formDataToJson(addressListDetailForm);
+	if(JSON.type == 1) {
+		$('#addressListDetailForm').data('bootstrapValidator').updateStatus('name', 'VALID');
+	}else {
+		$('#addressListDetailForm').data('bootstrapValidator').updateStatus('name', 'NOT_VALIDATED');
+	}
+	if(Util.validator(addressListDetailForm)){
 	$model = $('.addressListDetail-modal-lg');
 	JSON.id = $model.attr('aid');
 	var paramIn = {
@@ -387,6 +490,7 @@ $('#updateAddressListBtn').click(function (e) {
 			}
 		};
 	ajax.query(paramIn);
+	}
 })
 /**
  * 删除按钮
@@ -442,5 +546,10 @@ function newVisitRecord(name) {
 		};
 	ajax.query(paramIn);
 }
+
+$('.modal').on("hidden.bs.modal", function () {
+	$('#addressListForm').bootstrapValidator('resetForm', true);
+	$('#addressListDetailForm').bootstrapValidator('resetForm', true); 
+})
 
 //@ sourceURL=addressList.js

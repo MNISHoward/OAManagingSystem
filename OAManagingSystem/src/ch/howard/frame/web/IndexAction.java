@@ -38,7 +38,6 @@ public class IndexAction extends BaseAction implements ModelDriven<DailyModelDri
 	private VisitRecordService visitRecordService;
 	
 	private Iterable<Event> events;
-	private String myContent;
 	private List<Daily> dailys;
 	private int totalPages;
 	private Map<String, Object> addressLists;
@@ -46,10 +45,6 @@ public class IndexAction extends BaseAction implements ModelDriven<DailyModelDri
 	
 	public Iterable<Event> getEvents() {
 		return events;
-	}
-	
-	public void setMyContent(String myContent) {
-		this.myContent = myContent;
 	}
 	
 	public List<Daily> getDailys() {
@@ -97,7 +92,9 @@ public class IndexAction extends BaseAction implements ModelDriven<DailyModelDri
 		return "success";
 	}
 	
-	
+	public String toDoExecute() {
+		return "error";
+	}
 	
 	public String calendarExecute() {
 		
@@ -110,7 +107,7 @@ public class IndexAction extends BaseAction implements ModelDriven<DailyModelDri
 	}
 	
 	public String notificationHander() {
-		notificationService.insertNotificationIdOne(myContent);
+		notificationService.insertNotificationIdOne(dailyModelDriven.getMyContent());
 		return "notiHandle";
 	}
 	
@@ -164,6 +161,9 @@ public class IndexAction extends BaseAction implements ModelDriven<DailyModelDri
 	
 	@Override
 	public DailyModelDriven getModel() {
+		if(dailyModelDriven == null) {
+			dailyModelDriven = new DailyModelDriven();
+		}
 		return dailyModelDriven;
 	}
 	

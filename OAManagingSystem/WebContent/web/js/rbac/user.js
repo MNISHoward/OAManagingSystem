@@ -1,5 +1,41 @@
 $(function () {
-	init();
+	init3();
+	
+	$('#passwordForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	password: {
+            	message: '密码验证失败',
+                validators: {
+                    notEmpty: {
+                        message: '密码不能为空'
+                    },
+                }
+            },
+            repassword :  {
+            	message: '确认密码验证失败',
+                validators: {
+                	 notEmpty: {
+                         message: '确认密码不能为空'
+                     },
+                	identical: {
+                        field: 'password',
+                        message: '与密码不一致'
+                    },
+                },
+            },
+        },
+        excluded: [':disabled'] 
+    }).on('success.form.bv', function(e) {
+        // 阻止默认事件提交
+        e.preventDefault();
+        $('#savePassowrdBtn').prop('disabled', false);
+    });
 })
 
 /**
@@ -8,7 +44,7 @@ $(function () {
  * 
  * @returns
  */
-function init() {
+function init3() {
 	$('#dept-nav li .list-group').css({
 		display : "none",
 		marginLeft : function () {
@@ -339,27 +375,29 @@ function modelShowEvent() {
 
 $('#savePassowrdBtn').click(function (e) {
 	e.preventDefault();
-	dialog.confirmFun("确认修改用户密码？注意，用户并不知情，管理员请通知用户", sendAjaxWithNewPass);
-	function sendAjaxWithNewPass() {
-		var JSON = Util.formDataToJson(passwordForm);
-		var $model = $(".user-modal-lg");
-		var sid = $model.attr('sid');
-		JSON.sid = sid;
-		var paramIn = {
-				service : 'userService',
-				method : 'updateUserPassByStaff',
-				param : JSON,
-				success : function (data){
-					if(data.rtnCode == ajax.rtnCode.SUCCESS) {
-						$model.modal('hide');
-						$(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
-						dialog.successNo(data.param.message);
-					}else {
-						dialog.error(data.rtnMessage);
+	if(Util.validator(passwordForm)){
+		dialog.confirmFun("确认修改用户密码？注意，用户并不知情，管理员请通知用户", sendAjaxWithNewPass);
+		function sendAjaxWithNewPass() {
+			var JSON = Util.formDataToJson(passwordForm);
+			var $model = $(".user-modal-lg");
+			var sid = $model.attr('sid');
+			JSON.sid = sid;
+			var paramIn = {
+					service : 'userService',
+					method : 'updateUserPassByStaff',
+					param : JSON,
+					success : function (data){
+						if(data.rtnCode == ajax.rtnCode.SUCCESS) {
+							$model.modal('hide');
+							$(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
+							dialog.successNo(data.param.message);
+						}else {
+							dialog.error(data.rtnMessage);
+						}
 					}
-				}
-			};
-		ajax.query(paramIn);
+				};
+			ajax.query(paramIn);
+		}
 	}
 })
 
@@ -458,4 +496,9 @@ $(document).on("click", "#user-nav .glyphicon-lock",function () {
 		ajax.query(paramIn);
 	}
 });
+
+$('.modal').on("hidden.bs.modal", function () {
+	$('#passwordForm').bootstrapValidator('resetForm', true);
+})
+
 //@ sourceURL=user.js

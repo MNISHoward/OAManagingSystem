@@ -81,3 +81,7 @@
 	margin-top: 10px;
 	width: 200px;
 }
+
+.form-horizontal .has-feedback .form-control-feedback {
+	right: 220px;
+}

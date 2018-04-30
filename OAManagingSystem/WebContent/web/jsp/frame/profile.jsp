@@ -47,7 +47,7 @@
 				<div class="form-group" >
 					<label class="col-sm-2 control-label" >确认密码:</label>
 					<div class="col-sm-10">
-				      <ch:input type="text" id="newRePassword" />
+				      <ch:input type="password" id="newRePassword" />
 				    </div>
 				</div>
 				<input type="hidden" name="userId" value="<s:property value="#session.user.id" />" />

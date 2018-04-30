@@ -32,11 +32,9 @@ public class NotificationService {
 	private static final transient Logger log = LoggerFactory.getLogger(NotificationService.class);
 	private transient Map<String,Object> outMap = new HashMap<String, Object>();
 	
-	@Autowired
-	private NotificationDAO notificationDAO;
+	private static NotificationDAO notificationDAO;
 	
-	@Autowired
-	private UserDAO userDao;
+	private static UserDAO userDao;
 	
 	/**
 	 * 返回公告
@@ -66,7 +64,7 @@ public class NotificationService {
 		notificationDAO.save(notification);
 		
 		//给所有用户发送公告更新
-		this.insertNewNotification("【系统通知】新的公告已经更新", "新的公告内容：" + HtmlUtils.htmlUnescape(notification.getContent()));
+		NotificationService.insertNewNotification("【系统通知】新的公告已经更新", "新的公告内容：" + HtmlUtils.htmlUnescape(notification.getContent()));
 	}
 	
 	/**
@@ -124,28 +122,41 @@ public class NotificationService {
 	 * @param uid
 	 */
 	@Transactional
-	public void insertNewNotification(String titleName, String content, Integer uid) {
-		Notification notification = new Notification(null, content, new Date(), 0, "【新增通知】"+titleName);
+	public static void insertNewNotification(String titleName, String content, Integer uid) {
+		Notification notification = new Notification(null, content, new Date(), 0, "【系统通知】"+titleName);
 		User u = new User(uid);
 		notification.setUser(u);
 		notificationDAO.save(notification);
-		log.info("【新增通知】用户id为" + uid + "，标题：" +titleName + "，内容：" + content);
+		log.info("【系统通知】用户id为" + uid + "，标题：" +titleName + "，内容：" + content);
 	}
 	/**
-	 * 所有用户的通知，测试暂时不用临时表，优化时候使用，先插入临时表， 再临时表一对一插入
+	 * 所有用户的通知
 	 * @param titleName
 	 * @param content
 	 */
-	public void insertNewNotification(String titleName, String content) {
+	@Transactional
+	public static void insertNewNotification(String titleName, String content) {
 		List<Notification> notifications = new ArrayList<Notification>();
 		Iterable<User> userIds = userDao.findAllId();
 		for(User u : userIds) {
-			Notification notification = new Notification(null, content, new Date(), 0, titleName);
+			Notification notification = new Notification(null, content, new Date(), 0, "【系统通知】"+titleName);
 			notification.setUser(u);
 			notifications.add(notification);
 		}
 		notificationDAO.save(notifications);
-		log.info("【新增通知】全体用户" + "，标题：" +titleName + "，内容：" + content);
+		log.info("【系统通知】全体用户" + "，标题：" +titleName + "，内容：" + content);
 	}
+	
+	@Autowired
+	public void setNotificationDAO(NotificationDAO notificationDAO) {
+		NotificationService.notificationDAO = notificationDAO;
+	}
+	
+	@Autowired
+	public void setUserDao(UserDAO userDao) {
+		NotificationService.userDao = userDao;
+	}
+	
+	
 	
 }

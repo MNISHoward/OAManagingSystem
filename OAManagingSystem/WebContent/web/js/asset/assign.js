@@ -98,7 +98,7 @@ $('#saveAssginBtn').click(function (e) {
 			'assetId' : assetId
 		};
 		var paramIn = {
-				service : 'distribuionRecordService',
+				service : 'distributionRecordService',
 				method : 'saveDistributionRecord',
 				param : JSON,
 				success : function (data){

@@ -35,13 +35,6 @@
     padding: 0 10px;
   }
   
-  .datePicker {
-  	height: 34px;
-  }
-  .datePicker .input-group {
-  	padding: 0px 15px;
-  }
-  
   .event-modal-lg .radio-inline {
   	margin-left: 5px;
   }
@@ -56,4 +49,14 @@
     font-size: 12px;
     color: red;
   }
+  #eventForm .has-feedback .form-control-feedback,
+  #updateEventForm .has-feedback .form-control-feedback {
+	    top: 0;
+	    right: -15px;
+	}
 
+   #eventForm .content-input.has-feedback .form-control-feedback,
+   #updateEventForm .content-input.has-feedback .form-control-feedback {
+ 		top: 0;
+ 		right: 15px;
+  	}

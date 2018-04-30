@@ -28,6 +28,7 @@ import ch.howard.email.model.Inbox;
 import ch.howard.email.model.Outbox;
 import ch.howard.frame.model.User;
 import ch.howard.frame.util.Util;
+import ch.howard.index.service.NotificationService;
 
 @Service
 public class OutboxService {
@@ -69,6 +70,8 @@ public class OutboxService {
 		for(String s : split) {
 			inbox.setAcceptPerson(new User(Integer.valueOf(s)));
 			inboxService.saveInbox(inbox);
+			
+			NotificationService.insertNewNotification("您收到一封邮件，请查收", "收到'" + u.getStaff().getTitleName() + "'的一封邮件，详情请前往'公司邮箱'查看", Integer.valueOf(s));
 		}
 		
 	}

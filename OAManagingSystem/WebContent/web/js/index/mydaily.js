@@ -42,6 +42,30 @@ $(function () {
     	 $('#dailyForm').attr('pid', ui.item.id);
      },
 	});
+	
+	 $('#dailyForm').bootstrapValidator({
+	        message: 'This value is not valid',
+	        feedbackIcons: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	title: {
+	                message: '内容验证失败',
+	                validators: {
+	                    notEmpty: {
+	                        message: '内容不能为空'
+	                    },
+	                }
+	            },
+	        },
+	        excluded: [':disabled'] 
+	    }).on('success.form.bv', function(e) {
+	        // 阻止默认事件提交
+	        e.preventDefault();
+	        $('#saveDailyBtn').prop('disabled', false);
+	    });
 });
 
 /**
@@ -193,6 +217,7 @@ $(document).on('click', '#daily-body .daily-detail', function (e) {
  */
 $('#daily-content-back').click(function (e) {
 	e.preventDefault();
+	$('#dailyForm').bootstrapValidator('resetForm', true);
 	$('#daily-nav').slideDown('slow');
 	$('#daily-content-detail').slideUp('slow');
 });
@@ -220,18 +245,22 @@ $('#saveDailyBtn').click(function (e) {
 	e.preventDefault();
 	ue = UE.getEditor('editor');
 	if(ue.hasContents()){ //此处以非空为例
-		var text = ue.getContentTxt();
-		var pid = $('#dailyForm').attr('pid');
-		if(pid == undefined) {
-			dialog.error("先选择上司");
-			return false;
+		if(Util.validator(dailyForm)){
+			var text = ue.getContentTxt();
+			var pid = $('#dailyForm').attr('pid');
+			if(pid == undefined) {
+				dialog.error("先选择上司");
+				return false;
+			}
+			$('#leader').val(pid);
+			$('#summary').val(text);
+			$('#saveDailyBtn').prop('disabled', true);
+			ue.sync();       //同步内容
+			dailyForm.submit();   //提交Form
 		}
-		$('#leader').val(pid);
-		$('#summary').val(text);
-		ue.sync();       //同步内容
-		dailyForm.submit();   //提交Form
+	}else {
+		dialog.error("内容不能为空");
 	}
-	$('#newDailyBtn').prop('disabled', true);
 })
 
 //@ sourceURL=mydaily.js

@@ -55,14 +55,16 @@
 				</label>
 			  </div>
 			</div>
-			<div class="form-group datePicker ">
-			  <label for="birthday" class="col-sm-2 control-label">出生日期:</label>
-                <div class="input-group date form_datetime col-sm-5" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="endDate" data-link-format="yyyy-mm-dd hh:ii:ss">
-                    <input class="form-control" name="birthday" size="16" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+			<div class="form-group datePicker feedback-right">
+				<label for="birthday" class="col-sm-2 control-label">开始日期:</label>
+                <div class="col-sm-5">
+	                <div class="input-group date form_datetime">
+	                	<input class="form-control" id="birthday" name="birthday" type="text" value="" readonly="readonly" >
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+	                </div>
                 </div>
-				<input type="hidden" id="birthday"  value="" /><br/>
 			</div>
 			<div class="form-group">
 			  <label for="email" class="col-sm-2 control-label">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</label>
@@ -94,7 +96,7 @@
 			  <ch:input type="text" id="job" placeholder="工作岗位" />
 			  </div>
 			</div>
-			<div class="form-group">
+			<div class="form-group feedback-right">
 			  <label for="departmentId" class="col-sm-2 control-label">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</label>
 			  <div class="col-sm-10">
 			  	<s:iterator value="departments" >

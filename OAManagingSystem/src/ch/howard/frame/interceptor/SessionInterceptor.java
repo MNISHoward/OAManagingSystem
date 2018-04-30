@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.shiro.SecurityUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter;
+import org.apache.struts2.json.JSONUtil;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -76,7 +78,7 @@ public class SessionInterceptor extends AbstractInterceptor{
         		//ajax判断， 如果是登录界面的ajax则不需要登录，其他都需要用户登录 
             	String queryUrl = getRequestPayload(httpReq);
         		if(!queryUrl.equals("")) {
-        			AjaxInParam ai = JsonUtil.convertToObj(queryUrl, AjaxInParam.class);
+        			AjaxInParam ai = (AjaxInParam) JsonUtil.convertToObj(queryUrl, AjaxInParam.class);
                 	if(ai.getService().equals("userLoginService") || ai.getService().equals("userRegisterService")) {
                 		return arg0.invoke();    
                 	}else {

@@ -52,7 +52,7 @@ $('.leftnav-menu-a').click(function (e) {
 			if(data.rtnCode == ajax.rtnCode.NOLOGIN) {
 				dialog.success(data.rtnMessage, window.location.href);
 			}else {
-				$this.removeClass('disabled');
+				$('.leftnav-menu-a').removeClass('disabled');
 				window.asure = true;
 			}
 		});
@@ -60,6 +60,8 @@ $('.leftnav-menu-a').click(function (e) {
 	window.asure = false;
 	
 });
+
+
 
 /**
  * 公司邮箱

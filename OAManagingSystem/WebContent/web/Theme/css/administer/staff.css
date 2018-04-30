@@ -69,9 +69,8 @@
 	display: block;
 	margin-bottom : 0px;
 }
-  .datePicker {
-  	height: 34px;
-  }
-  .datePicker .input-group {
-  	padding: 0px 15px;
-  }
+
+#staffForm .feedback-right.has-feedback .form-control-feedback {
+    top: 0;
+    right: -30px;
+}

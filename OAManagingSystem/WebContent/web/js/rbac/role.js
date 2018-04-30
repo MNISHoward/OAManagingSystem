@@ -1,6 +1,93 @@
 
 $(function () {
 	init3();
+	
+	$('#roleForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	name: {
+            	message: '英文名称验证失败',
+                validators: {
+                    notEmpty: {
+                        message: '英文名称不能为空'
+                    },
+                    regexp : {
+                     	regexp:/^[a-zA-Z]+$/,
+                     	message : '英文名称格式不正确'
+                     }
+                }
+            },
+            titleName :  {
+            	message: '中文名称验证失败',
+                validators: {
+                	 notEmpty: {
+                         message: '中文名称不能为空'
+                     },
+                     regexp : {
+                     	regexp:/^[\u4e00-\u9fa5]+$/,
+                     	message : '中文名称格式不正确'
+                     }
+                },
+            },
+        },
+        excluded: [':disabled'] 
+    }).on('success.form.bv', function(e) {
+        // 阻止默认事件提交
+        e.preventDefault();
+        $('#saveRoleBtn').prop('disabled', false);
+    });
+	
+	$('#updateRoleForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	updateName: {
+            	message: '英文名称验证失败',
+                validators: {
+                    notEmpty: {
+                        message: '英文名称不能为空'
+                    },
+                    regexp : {
+                     	regexp:/^[a-zA-Z]+$/,
+                     	message : '英文名称格式不正确'
+                     }
+                }
+            },
+            updateTitleName :  {
+            	message: '中文名称验证失败',
+                validators: {
+                	 notEmpty: {
+                         message: '中文名称不能为空'
+                     },
+                     regexp : {
+                     	regexp:/^[\u4e00-\u9fa5]+$/,
+                     	message : '中文名称格式不正确'
+                     }
+                },
+            },
+        },
+        excluded: [':disabled'] 
+    }).on('success.form.bv', function(e) {
+        // 阻止默认事件提交
+        e.preventDefault();
+        $('#updateRoleBtn').prop('disabled', false);
+    });
+	
+	$('.modal').on("hidden.bs.modal", function () {
+		$('#roleForm').bootstrapValidator('resetForm', true);
+		$('#updateRoleForm').data('bootstrapValidator').resetField('updateName');
+		$('#updateRoleForm').data('bootstrapValidator').resetField('updateTitleName');
+	})
+
 })
 
 function init3() {
@@ -25,6 +112,7 @@ $('#newRoleBtn').click(function (e) {
 
 $('#saveRoleBtn').click(function (e) {
 	e.preventDefault();
+	if(Util.validator(roleForm)){
 	var JSON = Util.formDataToJson(roleForm);
 	if(JSON.users !== undefined && JSON.users !== null && !(JSON.users instanceof Array)) {
 		JSON.users =[JSON.users];
@@ -50,6 +138,7 @@ $('#saveRoleBtn').click(function (e) {
 			}
 		};
 	ajax.query(paramIn);
+	}
 })
 
 /**
@@ -144,34 +233,36 @@ function modelShowEvent() {
  */
 $('#updateRoleBtn').click(function (e) {
 	e.preventDefault();
-	var JSON = Util.formDataToJson(updateRoleForm);
-	if(JSON.updateUsers !== undefined && JSON.updateUsers !== null && !(JSON.updateUsers instanceof Array)) {
-		JSON.updateUsers =[JSON.updateUsers];
-	}
-	if(JSON.updateMenus !== undefined && JSON.updateMenus !== null && !(JSON.updateMenus instanceof Array)) {
-		JSON.updateMenus =[JSON.updateMenus];
-	}
-	var $model = $(".role-update-modal-lg");
-	var rid = $model.attr('rid');
-	JSON.rid = rid;
-	var paramIn = {
-			service : 'roleService',
-			method : 'updateRoleById',
-			param : JSON,
-			success : function (data) {
-				if(data.rtnCode == ajax.rtnCode.SUCCESS) {
-					$model.modal('hide');
-					$(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
-					dialog.successNo(data.param.message);
-					//新增的用户信息添加到前端
-					$tr = $('span[rid='+ data.param.role.id + ']').parents('tr');
-					newRoleWithJson(data.param.role, $tr);
-				}else {
-					dialog.error(data.rtnMessage);
+	if(Util.validator(updateRoleForm)){
+		var JSON = Util.formDataToJson(updateRoleForm);
+		if(JSON.updateUsers !== undefined && JSON.updateUsers !== null && !(JSON.updateUsers instanceof Array)) {
+			JSON.updateUsers =[JSON.updateUsers];
+		}
+		if(JSON.updateMenus !== undefined && JSON.updateMenus !== null && !(JSON.updateMenus instanceof Array)) {
+			JSON.updateMenus =[JSON.updateMenus];
+		}
+		var $model = $(".role-update-modal-lg");
+		var rid = $model.attr('rid');
+		JSON.rid = rid;
+		var paramIn = {
+				service : 'roleService',
+				method : 'updateRoleById',
+				param : JSON,
+				success : function (data) {
+					if(data.rtnCode == ajax.rtnCode.SUCCESS) {
+						$model.modal('hide');
+						$(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
+						dialog.successNo(data.param.message);
+						//新增的用户信息添加到前端
+						$tr = $('span[rid='+ data.param.role.id + ']').parents('tr');
+						newRoleWithJson(data.param.role, $tr);
+					}else {
+						dialog.error(data.rtnMessage);
+					}
 				}
-			}
-		};
-	ajax.query(paramIn);
+			};
+		ajax.query(paramIn);
+	}
 })
 
 /**

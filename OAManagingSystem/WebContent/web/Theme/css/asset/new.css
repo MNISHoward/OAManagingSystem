@@ -1,3 +1,9 @@
+#asset-nav {
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+
 .asset-div {
 	text-align: center;
 }

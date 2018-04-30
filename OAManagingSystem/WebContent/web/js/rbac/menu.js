@@ -1,5 +1,133 @@
 $(function () {
 	init3();
+	
+	$('#menuForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	name: {
+            	message: '英文名称验证失败',
+                validators: {
+                    notEmpty: {
+                        message: '英文名称不能为空'
+                    },
+                    regexp : {
+                     	regexp:/^[a-zA-Z]+$/,
+                     	message : '英文名称格式不正确'
+                     }
+                }
+            },
+            titleName :  {
+            	message: '中文名称验证失败',
+                validators: {
+                	 notEmpty: {
+                         message: '中文名称不能为空'
+                     },
+                     regexp : {
+                     	regexp:/^[\u4e00-\u9fa5]+$/,
+                     	message : '中文名称格式不正确'
+                     }
+                },
+            },
+            url : {
+            	message : '方法名称校验失败',
+            	validators: {
+               	 notEmpty: {
+                        message: '方法名称不能为空'
+                    },
+                    regexp : {
+                    	regexp:/^[a-zA-Z]+$/,
+                    	message : '方法名称格式不正确'
+                    }
+               },
+            },
+            iconClass : {
+            	message : 'icon图片校验失败',
+            	validators: {
+               	 notEmpty: {
+                        message: 'icon图片不能为空'
+                    },
+               },
+            }
+        },
+        excluded: [':disabled'] 
+    }).on('success.form.bv', function(e) {
+        // 阻止默认事件提交
+        e.preventDefault();
+        $('#saveMenuBtn').prop('disabled', false);
+    });
+	
+	$('#updateMenuForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	updateName: {
+            	message: '英文名称验证失败',
+                validators: {
+                    notEmpty: {
+                        message: '英文名称不能为空'
+                    },
+                    regexp : {
+                     	regexp:/^[a-zA-Z]+$/,
+                     	message : '英文名称格式不正确'
+                     }
+                }
+            },
+            updateTitleName :  {
+            	message: '中文名称验证失败',
+                validators: {
+                	 notEmpty: {
+                         message: '中文名称不能为空'
+                     },
+                     regexp : {
+                     	regexp:/^[\u4e00-\u9fa5]+$/,
+                     	message : '中文名称格式不正确'
+                     }
+                },
+            },
+            updateUrl : {
+            	message : '方法名称校验失败',
+            	validators: {
+               	 notEmpty: {
+                        message: '方法名称不能为空'
+                    },
+                    regexp : {
+                    	regexp:/^[a-zA-Z]+$/,
+                    	message : '方法名称格式不正确'
+                    }
+               },
+            },
+            updateIconClass : {
+            	message : 'icon图片校验失败',
+            	validators: {
+               	 notEmpty: {
+                        message: 'icon图片不能为空'
+                    },
+               },
+            }
+        },
+        excluded: [':disabled'] 
+    }).on('success.form.bv', function(e) {
+        // 阻止默认事件提交
+        e.preventDefault();
+        $('#updateMenuBtn').prop('disabled', false);
+    });
+	
+	$('.modal').on("hidden.bs.modal", function () {
+		$('#menuForm').bootstrapValidator('resetForm', true);
+		$('#updateMenuForm').data('bootstrapValidator').resetField('updateName');
+		$('#updateMenuForm').data('bootstrapValidator').resetField('updateTitleName');
+		$('#updateMenuForm').data('bootstrapValidator').resetField('updateUrl');
+		$('#updateMenuForm').data('bootstrapValidator').resetField('updateIconClass');
+	})
 })
 
 /**
@@ -31,27 +159,29 @@ $('#newMenuBtn').click(function (e) {
 
 $('#saveMenuBtn').click(function (e) {
 	e.preventDefault();
-	dialog.confirmFun("确认要新增用户吗？注意在对应的控制器中添加对应的方法", saveMenu);
-	function saveMenu() {
-		var JSON = Util.formDataToJson(menuForm);
-		var $model = $(".menu-modal-lg");
-		var paramIn = {
-				service : 'menuService',
-				method : 'insertMenu',
-				param : JSON,
-				success : function (data) {
-					if(data.rtnCode == ajax.rtnCode.SUCCESS) {
-						$model.modal('hide');
-						$(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
-						dialog.successNo(data.param.message);
-						newMenuWithJson(data.param.menu);
-						$('#menuForm').get(0).reset();
-					}else {
-						dialog.error(data.rtnMessage);
+	if(Util.validator(menuForm)){
+		dialog.confirmFun("确认要新增菜单吗？注意在对应的控制器中添加对应的方法", saveMenu);
+		function saveMenu() {
+			var JSON = Util.formDataToJson(menuForm);
+			var $model = $(".menu-modal-lg");
+			var paramIn = {
+					service : 'menuService',
+					method : 'insertMenu',
+					param : JSON,
+					success : function (data) {
+						if(data.rtnCode == ajax.rtnCode.SUCCESS) {
+							$model.modal('hide');
+							$(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
+							dialog.successNo(data.param.message);
+							newMenuWithJson(data.param.menu);
+							$('#menuForm').get(0).reset();
+						}else {
+							dialog.error(data.rtnMessage);
+						}
 					}
-				}
-			};
-		ajax.query(paramIn);
+				};
+			ajax.query(paramIn);
+		}
 	}
 })
 
@@ -158,29 +288,31 @@ function modelShowEvent() {
  */
 $('#updateMenuBtn').click(function (e) {
 	e.preventDefault();
-	dialog.confirmFun("确认要修改菜单吗？注意在对应的控制器中添加对应的方法", updateMenu);
-	function updateMenu() {
-		var JSON = Util.formDataToJson(updateMenuForm);
-		var $model = $(".menu-update-modal-lg");
-		JSON.mid = $model.attr('mid');
-		var paramIn = {
-				service : 'menuService',
-				method : 'updateMenu',
-				param : JSON,
-				success : function (data) {
-					if(data.rtnCode == ajax.rtnCode.SUCCESS) {
-						$model.modal('hide');
-						$(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
-						dialog.successNo(data.param.message);
-						$tr = $('span[mid='+ data.param.menu.id + ']').parents('tr');
-						$a = $('#left-navbar').find('a[mid='+ data.param.menu.id +']');
-						newMenuWithJson(data.param.menu,$tr,$a);
-					}else {
-						dialog.error(data.rtnMessage);
+	if(Util.validator(updateMenuForm)){
+		dialog.confirmFun("确认要修改菜单吗？注意在对应的控制器中添加对应的方法", updateMenu);
+		function updateMenu() {
+			var JSON = Util.formDataToJson(updateMenuForm);
+			var $model = $(".menu-update-modal-lg");
+			JSON.mid = $model.attr('mid');
+			var paramIn = {
+					service : 'menuService',
+					method : 'updateMenu',
+					param : JSON,
+					success : function (data) {
+						if(data.rtnCode == ajax.rtnCode.SUCCESS) {
+							$model.modal('hide');
+							$(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
+							dialog.successNo(data.param.message);
+							$tr = $('span[mid='+ data.param.menu.id + ']').parents('tr');
+							$a = $('#left-navbar').find('a[mid='+ data.param.menu.id +']');
+							newMenuWithJson(data.param.menu,$tr,$a);
+						}else {
+							dialog.error(data.rtnMessage);
+						}
 					}
-				}
-			};
-		ajax.query(paramIn);
+				};
+			ajax.query(paramIn);
+		}
 	}
 })
 

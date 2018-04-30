@@ -5,11 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.plaf.basic.BasicSliderUI.ActionScroller;
+
+import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 import ch.howard.email.model.Draftbox;
@@ -52,7 +56,7 @@ public class EmailAction extends BaseAction implements ModelDriven<Outbox> {
 	private long inboxCount;
 	
 	//3是草稿，1是收件箱 ，0是新邮件，2是发件箱
-	private Integer flag;
+	private int flag;
 	
 	public void setAccpetPersonId(String accpetPersonId) {
 		this.accpetPersonId = accpetPersonId;
@@ -74,11 +78,11 @@ public class EmailAction extends BaseAction implements ModelDriven<Outbox> {
 		return draftboxs;
 	}
 	
-	public Integer getFlag() {
+	public int getFlag() {
 		return flag;
 	}
 
-	public void setFlag(Integer flag) {
+	public void setFlag(int flag) {
 		this.flag = flag;
 	}
 	
@@ -110,7 +114,6 @@ public class EmailAction extends BaseAction implements ModelDriven<Outbox> {
 	}
 	
 	public String writeExecute() {
-		
 		return "write";
 	}
 	

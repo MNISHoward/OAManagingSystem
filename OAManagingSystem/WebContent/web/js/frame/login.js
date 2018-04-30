@@ -97,42 +97,44 @@ $(function () {
     });
 });
 
-$('#loginbtn').click(function (e) {
-	e.preventDefault();
-	if(Util.validator(loginForm)){
-		var JSON = Util.formDataToJson(loginForm);
-		var paramIn = {
-			service : 'userLoginService',
-			method : 'userlogin',
-			param : JSON,
-			success : function (data){
-				if(data.rtnCode == ajax.rtnCode.SUCCESS) {
-					dialog.success(data.param.message, ctx + "/index.do?rid=1");
-				}else {
-					dialog.error(data.rtnMessage);
-				}
-			}
-		};
-		ajax.query(paramIn);
-	}
-});
+//$('#loginbtn').click(function (e) {
+//	e.preventDefault();
+//	if(Util.validator(loginForm)){
+//		var JSON = Util.formDataToJson(loginForm);
+//		var paramIn = {
+//			service : 'userLoginService',
+//			method : 'userlogin',
+//			param : JSON,
+//			success : function (data){
+//				if(data.rtnCode == ajax.rtnCode.SUCCESS) {
+//					dialog.success(data.param.message, ctx + "/index.do?rid=1");
+//				}else {
+//					dialog.error(data.rtnMessage);
+//				}
+//			}
+//		};
+//		ajax.query(paramIn);
+//	}
+//});
+//
+//$('#regbtn').click(function (e) {
+//	e.preventDefault();
+//	if(Util.validator(registerForm)){
+//		var JSON = Util.formDataToJson(registerForm);
+//		var paramIn = {
+//				service : 'userRegisterService',
+//				method : 'userRegister',
+//				param : JSON,
+//				success : function (data){
+//					if(data.rtnCode == ajax.rtnCode.SUCCESS) {
+//						dialog.success(data.param.message, ctx + "/login.do");
+//					}else {
+//						dialog.error(data.rtnMessage);
+//					}
+//				}
+//			};
+//		ajax.query(paramIn);
+//	}
+//});
 
-$('#regbtn').click(function (e) {
-	e.preventDefault();
-	if(Util.validator(registerForm)){
-		var JSON = Util.formDataToJson(registerForm);
-		var paramIn = {
-				service : 'userRegisterService',
-				method : 'userRegister',
-				param : JSON,
-				success : function (data){
-					if(data.rtnCode == ajax.rtnCode.SUCCESS) {
-						dialog.success(data.param.message, ctx + "/login.do");
-					}else {
-						dialog.error(data.rtnMessage);
-					}
-				}
-			};
-		ajax.query(paramIn);
-	}
-});
+//@ sourceURL=login.js 

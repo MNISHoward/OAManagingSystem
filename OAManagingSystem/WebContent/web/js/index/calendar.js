@@ -32,7 +32,7 @@ $(document).ready(function() {
 		  	$('input[name=updateStartDate]').val(event.start.format("YYYY-MM-DD"));
 		  	if(!event.allDay) {
 		  		$('.updateForm_dateTime').css("display", "block");
-		  		$('input[name=updateStartTime]').val(event.start.format("HH-mm-ss"));
+		  		$('input[name=updateStartTime]').val(event.start.format("HH:mm:ss"));
 		  		$('input[name=updateEndDate]').val(event.end.format());
 		  		$('input[name=updateAllDay][value="false"]').prop("checked", true);
 		  	}
@@ -61,8 +61,8 @@ $(document).ready(function() {
 			  		updateStartDate : event.start.format("YYYY-MM-DD"),
 		  		}
 		  		if(!event.allDay) {
-			  		JSON.updateEndDate = event.end.format("YYYY-MM-DD HH-mm-ss");
-			  		JSON.updateStartTime = event.start.format("HH-mm-ss");
+			  		JSON.updateEndDate = event.end.format("YYYY-MM-DD HH:mm:ss");
+			  		JSON.updateStartTime = event.start.format("HH:mm:ss");
 		  		}
 		  		var paramIn = {
 		  				service : 'eventService',
@@ -122,6 +122,7 @@ $(document).ready(function() {
      */
     $('.form_date').datetimepicker({
         language:  'zh-CN',
+        format: 'yyyy-mm-dd',
         weekStart: 1,
         todayBtn:  1,
 		autoclose: 1,
@@ -129,10 +130,14 @@ $(document).ready(function() {
 		startView: 2,
 		minView: 2,
 		forceParse: 0
+    }).on('changeDate', function (e) {
+    	var name = $(this).find('input').attr('name');
+    	 $(this).parents('form').bootstrapValidator('revalidateField', name);
     });
     
     $('.form_time').datetimepicker({
         language:  'zh-CN',
+        format: 'hh:ii:ss',
         weekStart: 1,
         todayBtn:  1,
 		autoclose: 1,
@@ -141,9 +146,13 @@ $(document).ready(function() {
 		minView: 0,
 		maxView: 1,
 		forceParse: 0
+    }).on('changeDate', function (e) {
+    	var name = $(this).find('input').attr('name');
+        $(this).parents('form').bootstrapValidator('revalidateField', name);
     });
     $('.form_datetime').datetimepicker({
         language:  'zh-CN',
+        format:'yyyy-mm-dd hh:ii:ss',
         weekStart: 1,
         todayBtn:  1,
 		autoclose: 1,
@@ -151,8 +160,137 @@ $(document).ready(function() {
 		startView: 2,
 		forceParse: 0,
         showMeridian: 1
+    }).on('changeDate', function (e) {
+    	var name = $(this).find('input').attr('name');
+    	 $(this).parents('form').bootstrapValidator('revalidateField', name);
     });
     
+    
+    $('#eventForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	content: {
+                message: '内容验证失败',
+                validators: {
+                    notEmpty: {
+                        message: '内容不能为空'
+                    },
+                }
+            },
+            startDate : {
+            	message: '开始日期验证失败',
+            	validators: {
+            		notEmpty : {
+            			message : '开始日期不能为空'
+            		},
+            	}
+            },
+            startTime : {
+            	message: '开始时间验证失败',
+            	validators: {
+            		notEmpty : {
+            			message : '开始时间不能为空',
+            		},
+            	}
+            },
+            endDate : {
+            	message: '结束时间验证失败',
+            	validators: {
+            		notEmpty : {
+            			message : '结束时间不能为空',
+            		},
+            		callback : {
+            			message : '结束时间必须大于开始时间',
+            			callback : function (value, validator) {
+                			var beginDate = $('#startDate').val() + " " + $('#startTime').val();
+                			var endDate = value;
+                			beginDate = beginDate.replace(/-/g,"/");
+                			endDate = endDate.replace(/-/g,"/");
+                			var d1 = new Date(Date.parse(beginDate));
+                			var d2 = new Date(Date.parse(endDate));
+                			if(d2 >= d1)
+                				return true;
+                			else 
+                				return false;
+                		}
+            		}
+            	}
+            }
+        },
+        excluded: [':disabled'] 
+    }).on('success.form.bv', function(e) {
+        // 阻止默认事件提交
+        e.preventDefault();
+        $('#saveEventBtn').prop('disabled', false);
+    });
+    
+    $('#updateEventForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	updateContent: {
+                message: '内容验证失败',
+                validators: {
+                    notEmpty: {
+                        message: '内容不能为空'
+                    },
+                }
+            },
+            updateStartDate : {
+            	message: '开始日期验证失败',
+            	validators: {
+            		notEmpty : {
+            			message : '开始日期不能为空'
+            		},
+            	}
+            },
+            updateStartTime : {
+            	message: '开始时间验证失败',
+            	validators: {
+            		notEmpty : {
+            			message : '开始时间不能为空',
+            		},
+            	}
+            },
+            updateEndDate : {
+            	message: '结束时间验证失败',
+            	validators: {
+            		notEmpty : {
+            			message : '结束时间不能为空',
+            		},
+            		callback : {
+            			message : '结束时间必须大于开始时间',
+            			callback : function (value, validator) {
+                			var beginDate = $('#updateStartDate').val() + " " + $('#updateStartTime').val();
+                			var endDate = value;
+                			beginDate = beginDate.replace(/-/g,"/");
+                			endDate = endDate.replace(/-/g,"/");
+                			var d1 = new Date(Date.parse(beginDate));
+                			var d2 = new Date(Date.parse(endDate));
+                			if(d2 >= d1)
+                				return true;
+                			else 
+                				return false;
+                		}
+            		}
+            	}
+            }
+        },
+        excluded: [':disabled'] 
+    }).on('success.form.bv', function(e) {
+        // 阻止默认事件提交
+        e.preventDefault();
+        $('#updateEventBtn').prop('disabled', false);
+    });
 });
 
 /**
@@ -162,28 +300,37 @@ $(document).ready(function() {
  */
 $('#saveEventBtn').click(function (e) {
 	e.preventDefault();
-	$model = $('.event-modal-lg');
 	var JSON = Util.formDataToJson(eventForm);
-	var paramIn = {
-			service : 'eventService',
-			method : 'insertEvent',
-			param : JSON,
-			success : function (data) {
-				if(data.rtnCode == ajax.rtnCode.SUCCESS) {
-					 if(data.rtnCode == ajax.rtnCode.SUCCESS) {
-						 $model.modal('hide');
-						 $(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
-						 dialog.successNo(data.param.message);
-						 $('#calendar').fullCalendar('refetchEvents');
-						}else {
-							dialog.error(data.rtnMessage);
-						}
-				}else {
-					dialog.error(data.rtnMessage);
+	if(JSON.allDay == "true") {
+		$('#eventForm').data('bootstrapValidator').updateStatus('startTime', 'VALID');
+		$('#eventForm').data('bootstrapValidator').updateStatus('endDate', 'VALID');
+	}else {
+		$('#eventForm').data('bootstrapValidator').updateStatus('startTime', 'NOT_VALIDATED', null);
+		$('#eventForm').data('bootstrapValidator').updateStatus('endDate', 'NOT_VALIDATED', null);
+	}
+	if(Util.validator(eventForm)){
+		$model = $('.event-modal-lg');
+		var paramIn = {
+				service : 'eventService',
+				method : 'insertEvent',
+				param : JSON,
+				success : function (data) {
+					if(data.rtnCode == ajax.rtnCode.SUCCESS) {
+						 if(data.rtnCode == ajax.rtnCode.SUCCESS) {
+							 $model.modal('hide');
+							 $(".modal-backdrop").remove();//由于js的单线程，遇到DOM时异步操作，dialog导致modal渲染结束前再次渲染页面，手动清除蒙板
+							 dialog.successNo(data.param.message);
+							 $('#calendar').fullCalendar('refetchEvents');
+							}else {
+								dialog.error(data.rtnMessage);
+							}
+					}else {
+						dialog.error(data.rtnMessage);
+					}
 				}
-			}
-		};
-	ajax.query(paramIn);
+			};
+		ajax.query(paramIn);
+	}
 })
 
 /**
@@ -193,8 +340,16 @@ $('#saveEventBtn').click(function (e) {
  */
 $('#updateEventBtn').click(function (e) {
 	e.preventDefault();
-	$model = $('.update-event-modal-lg');
 	var JSON = Util.formDataToJson(updateEventForm);
+	if(JSON.allDay == "true") {
+		$('#updateEventForm').data('bootstrapValidator').updateStatus('updateStartTime', 'VALID');
+		$('#updateEventForm').data('bootstrapValidator').updateStatus('updateEndDate', 'VALID');
+	}else {
+		$('#updateEventForm').data('bootstrapValidator').updateStatus('updateStartTime', 'NOT_VALIDATED', null);
+		$('#updateEventForm').data('bootstrapValidator').updateStatus('updateEndDate', 'NOT_VALIDATED', null);
+	}
+	if(Util.validator(updateEventForm)){
+	$model = $('.update-event-modal-lg');
 	var paramIn = {
 			service : 'eventService',
 			method : 'updateEvent',
@@ -215,6 +370,7 @@ $('#updateEventBtn').click(function (e) {
 			}
 		};
 	ajax.query(paramIn);
+	}
 })
 /**
  * 删除按钮事件
@@ -268,4 +424,8 @@ $('input[name=updateAllDay]').change(function () {
 		$('.updateForm_dateTime').css("display", "block");
 })
 
+$('.modal').on("hidden.bs.modal", function () {
+	$('#eventForm').bootstrapValidator('resetForm', true);
+	$('#updateEventForm').bootstrapValidator('resetForm', true); 
+})
 //@ sourceURL=calendar.js

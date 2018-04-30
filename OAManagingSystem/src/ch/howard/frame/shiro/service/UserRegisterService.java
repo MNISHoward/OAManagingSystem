@@ -4,9 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Service;
 import ch.howard.frame.dao.UserDAO;
 import ch.howard.frame.exception.AppException;
 import ch.howard.frame.model.User;
+import ch.howard.index.service.NotificationService;
 import ch.howard.rbac.dao.StaffDAO;
 import ch.howard.rbac.model.Staff;
 
@@ -46,6 +45,7 @@ public class UserRegisterService {
 				staff.setHasUser(1);
 				staffDao.save(staff);
 				userDao.save(u);
+				NotificationService.insertNewNotification("恭喜加入某某某XX技术有限公司", "欢迎使用某某某XX技术有限公司的办公管理系统", u.getId());
 				log.info("注册成功 :" + username);
 				outMap.put("message", "注册成功 : " + username + "，请登录。");
 			}else {

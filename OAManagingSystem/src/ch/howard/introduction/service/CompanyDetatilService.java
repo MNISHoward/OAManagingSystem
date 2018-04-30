@@ -86,6 +86,7 @@ public class CompanyDetatilService {
 			log.error("文件不存在");
 			e.printStackTrace();
 		} catch (IOException e) {
+		    companyDetail = new CompanyDetail(); //防止Struts2 POJO传值失败
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

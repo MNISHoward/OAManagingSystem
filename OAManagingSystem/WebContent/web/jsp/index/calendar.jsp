@@ -16,8 +16,8 @@
         <h4 class="modal-title">新增日程</h4>
       </div>
       <div class="modal-body">
-        <form id="eventForm" class="form-horizontal passwordForm" >
-       		<div class="form-group">
+        <form id="eventForm" class="form-horizontal" >
+       		<div class="form-group content-input">
 	    	  <label class="col-sm-2 control-label" for="content">日程内容:</label>
 	    	  <div class="col-sm-10">
 			 	 <ch:input type="text" id="content" placeholder="日程内容" />
@@ -25,30 +25,32 @@
 			</div>
 			<div class="form-group datePicker">
                 <label for="startDate" class="col-sm-2 control-label">开始日期:</label>
-                <div class="input-group date form_date col-sm-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="startDate" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" name="startDate" size="16" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                <div class="col-sm-5">
+	                <div class="input-group date form_date">
+	                	<input class="form-control" id="startDate" name="startDate" type="text" value="" readonly="readonly" >
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+	                </div>
                 </div>
-				<input type="hidden" id="startDate"  value="" /><br/>
             </div>
 			<div class="form-group datePicker form_dateTime">
                 <label for="startTime" class="col-sm-2 control-label">开始时间:</label>
-                <div class="input-group date form_time col-sm-5" data-date="" data-date-format="hh:ii:ss" data-link-field="startTime" data-link-format="hh:ii:ss">
-                    <input class="form-control" name="startTime" size="16" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                <div class="col-sm-5">
+	                <div class="input-group date form_time" >
+	                	<input class="form-control" id="startTime" name="startTime" size="16" type="text" readonly="readonly" >
+	                	<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+	                </div>
                 </div>
-				<input type="hidden" id="startTime" value="" /><br/>
             </div>
             <div class="form-group datePicker form_dateTime" >
                 <label for="endDate" class="col-sm-2 control-label">结束时间:</label>
-                <div class="input-group date form_datetime col-sm-5" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="endDate" data-link-format="yyyy-mm-dd hh:ii:ss">
-                    <input class="form-control" name="endDate" size="16" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                <div class="col-sm-5" >
+                	<div class="input-group date form_datetime" >
+                		 <input class="form-control" id="endDate" name="endDate" size="16" type="text" readonly="readonly">
+                		 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                	</div>
                 </div>
-				<input type="hidden" id="endDate"  value="" /><br/>
             </div>
             <label class="radio-inline">
 			  <input type="radio" name="allDay" value="true" checked > 全天
@@ -75,7 +77,7 @@
       </div>
       <div class="modal-body">
         <form id="updateEventForm" class="form-horizontal passwordForm" >
-       		<div class="form-group">
+       		<div class="form-group content-input">
 	    	  <label class="col-sm-2 control-label" for="updateContent">日程内容:</label>
 	    	  <div class="col-sm-10">
 			 	 <ch:input type="text" id="updateContent" placeholder="日程内容" />
@@ -83,30 +85,32 @@
 			</div>
 			<div class="form-group datePicker">
                 <label for="updateStartDate" class="col-sm-2 control-label">开始日期:</label>
-                <div class="input-group date form_date col-sm-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="updateStartDate" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" name="updateStartDate" size="16" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                <div class="col-sm-5">
+	                <div class="input-group date form_date">
+	                	<input class="form-control" id="updateStartDate" name="updateStartDate" type="text" value="" readonly="readonly" >
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+	                </div>
                 </div>
-				<input type="hidden" id="updateStartDate"  value="" /><br/>
             </div>
 			<div class="form-group datePicker updateForm_dateTime">
                 <label for="updateStartTime" class="col-sm-2 control-label">开始时间:</label>
-                <div class="input-group date form_time col-sm-5" data-date="" data-date-format="hh:ii:ss" data-link-field="updateStartTime" data-link-format="hh:ii:ss">
-                    <input class="form-control" name="updateStartTime" size="16" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                <div class="col-sm-5">
+	                <div class="input-group date form_time" >
+	                	<input class="form-control" id="updateStartTime" name="updateStartTime" size="16" type="text" readonly="readonly" >
+	                	<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+	                </div>
                 </div>
-				<input type="hidden" id="updateStartTime" value="" /><br/>
             </div>
             <div class="form-group datePicker updateForm_dateTime" >
                 <label for="updateEndDate" class="col-sm-2 control-label">结束时间:</label>
-                <div class="input-group date form_datetime col-sm-5" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="updateEndDate" data-link-format="yyyy-mm-dd hh:ii:ss">
-                    <input class="form-control" name="updateEndDate" size="16" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                <div class="col-sm-5" >
+                	<div class="input-group date form_datetime" >
+                		 <input class="form-control" id="updateEndDate" name="updateEndDate" size="16" type="text" readonly="readonly">
+                		 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                	</div>
                 </div>
-				<input type="hidden" id="updateEndDate"  value="" /><br/>
             </div>
             <label class="radio-inline">
 			  <input type="radio" name="updateAllDay" value="true" checked > 全天

@@ -28,10 +28,16 @@ public class MyEditorStrutsFilter extends StrutsPrepareAndExecuteFilter{
             FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         String url = request.getRequestURI();
-	        if (url.contains(request.getContextPath()+"/web/Common/ueditor/jsp/")) {
-	            chain.doFilter(new MyRequestWrapper(request), res);         
+        String header = request.getHeader("X-Requested-With");  
+        boolean isAjax = "XMLHttpRequest".equals(header) ? true:false;
+        if(isAjax) {//由于request流已经被读取过一次，所以要进行封装，不然会has called错误
+        	super.doFilter(new MyRequestWrapper(request), res, chain);  
+        }else {
+        	if (url.contains(request.getContextPath()+"/web/Common/ueditor/jsp/")) {
+	            chain.doFilter(req, res);      //不能用装饰器装饰，不然modeldriven不能获取数据   
 	        }else{             
-	            super.doFilter(new MyRequestWrapper(request), res, chain);         
+	            super.doFilter(req, res, chain);         
 	        }
+        }
     }
 }

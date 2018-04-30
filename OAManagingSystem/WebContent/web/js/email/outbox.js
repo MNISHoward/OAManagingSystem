@@ -52,7 +52,9 @@ $('#outbox-content-edit').click(function (e) {
 		title: $a.find('.heading-title').text().trim(),
 		flag : 2 //判断当前是发件
 	};
-	$('#right-main').load(ctx + $('#left-navbar .leftnav-menu-a[mid=33]').attr('href'), JSON);
+	$.get(ctx + $('#left-navbar .leftnav-menu-a[mid=33]').attr('href'), JSON, function(data) {
+		$('#right-main').html(data);
+	});
 })
 
 $('#outbox-content-delete').click(function (e) {

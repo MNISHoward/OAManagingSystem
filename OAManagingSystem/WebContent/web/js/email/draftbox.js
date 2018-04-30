@@ -53,7 +53,9 @@ $('#draftbox-content-edit').click(function (e) {
 		title: $a.find('.list-group-item-title').text().trim(),
 		flag : 3 //判断当前是草稿
 	};
-	$('#right-main').load(ctx + $('#left-navbar .leftnav-menu-a[mid=33]').attr('href'), JSON);
+	$.get(ctx + $('#left-navbar .leftnav-menu-a[mid=33]').attr('href'), JSON, function(data) {
+		$('#right-main').html(data);
+	});
 })
 
 $('#draftbox-content-delete').click(function (e) {

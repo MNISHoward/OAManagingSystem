@@ -68,7 +68,11 @@
     	<default-interceptor-ref name="sessionStack"></default-interceptor-ref>
     	<global-results>
     		<result name="login" type="redirectAction" >login</result>
+    		<result name="error" >/error/error.jsp</result>
    		</global-results>
+   		<global-exception-mappings>
+		  <exception-mapping exception="java.lang.Exception" result="error"/>
+		 </global-exception-mappings>
     	<action name="index" class="indexAction" >
     		<result>web/jsp/frame/index.jsp</result>
     		<result name="calendar" >web/jsp/index/calendar.jsp</result>
@@ -76,7 +80,7 @@
     		<result name="notiHandle" type="redirect" >index.do?rid=${rid}</result>
     		<result name="myDaily" >web/jsp/index/mydaily.jsp</result>
     		<result name="addressList" >web/jsp/index/addressList.jsp</result>
-    		<allowed-methods>calendarExecute,notificationExecute,notificationHander,myDailyExecute,myDailyHander,addressListExecute</allowed-methods>
+    		<allowed-methods>toDoExecute,calendarExecute,notificationExecute,notificationHander,myDailyExecute,myDailyHander,addressListExecute</allowed-methods>
     	</action>
     	
     	<action name="login" class="loginAction" >

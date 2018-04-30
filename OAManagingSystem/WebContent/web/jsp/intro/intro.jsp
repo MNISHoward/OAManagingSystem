@@ -67,7 +67,7 @@
         <h4 class="modal-title">公司信息</h4>
       </div>
       <div class="modal-body">
-        <form id="updateRoleForm" method="post" class="form-horizontal" action="<%=ctx %>/intro!companyHander.do" >
+        <form id="introForm" method="post" class="form-horizontal" action="<%=ctx %>/intro!companyHander.do" >
         	<div class="form-group">
 		    	<label for="name" class="col-sm-2 control-label">公司名称:</label>
 		    	<div class="col-sm-10">
