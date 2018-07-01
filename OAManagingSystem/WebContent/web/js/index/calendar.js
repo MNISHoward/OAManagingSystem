@@ -341,7 +341,7 @@ $('#saveEventBtn').click(function (e) {
 $('#updateEventBtn').click(function (e) {
 	e.preventDefault();
 	var JSON = Util.formDataToJson(updateEventForm);
-	if(JSON.allDay == "true") {
+	if(JSON.updateAllDay == "true") {
 		$('#updateEventForm').data('bootstrapValidator').updateStatus('updateStartTime', 'VALID');
 		$('#updateEventForm').data('bootstrapValidator').updateStatus('updateEndDate', 'VALID');
 	}else {

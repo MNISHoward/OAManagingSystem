@@ -2,7 +2,7 @@
 <%@include file="/web/Common/jsp/head.jsp" %>
 <body class="container-fluid">
 <div class="delete-div" >
-	<h4 class="delete-h4" >资产分配</h4>
+	<h4 class="delete-h4" >资产删除</h4>
 </div>
 <form id="assetForm" class="form-horizontal clearfix" >
 	<div class="form-group">
@@ -49,7 +49,7 @@
 	</div>
 </form>
 <div class="button-group" >
-	<button type="submit" id="deleteAssginBtn" class="btn btn-primary">确认分配</button>
+	<button type="submit" id="deleteAssginBtn" class="btn btn-danger">确认删除</button>
 </div>
 <script type="text/javascript" src="<%=ctx %>/web/Common/js/jquery-ui.min.js" ></script>
 <script type="text/javascript" src="<%=ctx %>/web/js<%=fileName %>.js" ></script>

@@ -13,7 +13,12 @@
       <exception-type>java.lang.Throwable</exception-type>  
       <location>/error/error.jsp</location>  
   </error-page>  
-  
+  <!--  tomcat自动启动Chrome
+  <filter>
+    <filter-name>startup</filter-name>
+    <filter-class>ch.howard.frame.filter.StartFilter</filter-class>
+  </filter>
+   -->
   <!-- shiro过滤器配置 -->
   <filter>
     <filter-name>shiroFilter</filter-name>

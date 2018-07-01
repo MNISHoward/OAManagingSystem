@@ -549,7 +549,9 @@ function newVisitRecord(name) {
 
 $('.modal').on("hidden.bs.modal", function () {
 	$('#addressListForm').bootstrapValidator('resetForm', true);
-	$('#addressListDetailForm').bootstrapValidator('resetForm', true); 
+	$('#addressListDetailForm').data('bootstrapValidator').resetField('name');
+	$('#addressListDetailForm').data('bootstrapValidator').resetField('company');
+	$('#addressListDetailForm').data('bootstrapValidator').resetField('phone');
 })
 
 //@ sourceURL=addressList.js
